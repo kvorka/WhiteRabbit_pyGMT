@@ -3,7 +3,7 @@
 ## Cartesian projection > proj = "X5c/12c".        ##
 ## Spherical projection proj = "Pa8c".             ##
 #####################################################
-from pygmt.baseline.parent_class import *
+from pygmt_objects.baseline.parent_class import *
 
 class csection(cparent):
   

@@ -1,8 +1,8 @@
-import subprocess
-from pygmt.cross_section import csection
-from pygmt.surface_plot import csurface
+import subprocess as sb
+from pygmt_objects.cross_section import csection
+from pygmt_objects.surface_plot import csurface
 
-subprocess.run("source load_gmt6")
+sb.run("source load_gmt6", shell=True, executable="/bin/bash")
 
 ## Create csection object and define the projection and colorpallete (from matplotlib.colors) to be used
 csc = csection( proj="X5c/10c", cpallete="coolwarm", cmap="cmap.cpt" )
@@ -31,4 +31,4 @@ csf = csurface( proj="W180/12", cpallete="coolwarm", cmap="cmap.cpt" )
 csf.color_bar( b1="-0.20", b2="0.20", unit="", outfile="85-bar-flux.pdf" )
 csf.surface_plot( infile="Ek3-085-mode2b-flux.dat", outfile="085-mode2b-fx.pdf", cB=0.20, cT=1.0, tgtcn="tgt-n.dat", tgtcs="tgt-s.dat")
 
-subprocess.run("rm -f map.cpt")
+sb.run("rm -f cmap.cpt", shell=True, executable="/bin/bash")

@@ -1,5 +1,5 @@
 import pygmt
-from pygmt.baseline.module_parent_class import *
+from pygmt_objects.baseline.module_parent_class import *
 
 class cparent:
   

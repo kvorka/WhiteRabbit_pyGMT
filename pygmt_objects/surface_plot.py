@@ -2,7 +2,7 @@
 ###  Python class for generating the surface plots. ###
 ###  Only supported projection is W.                ###
 #######################################################
-from pygmt.baseline.parent_class import *
+from pygmt_objects.baseline.parent_class import *
 
 class csurface(cparent):
   
