@@ -1,5 +1,5 @@
 import numpy
-import matplotlib.pyplot
+import matplotlib.pyplot # type: ignore
 
 def export_cmap_to_cpt(cpallete, cfile, **kwargs):
     cmap = matplotlib.pyplot.get_cmap(cpallete, 255)
