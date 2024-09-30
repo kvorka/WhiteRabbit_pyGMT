@@ -1,3 +1,8 @@
+#####################################################
+## Python class for generating the cross-sections. ##
+## Cartesian projection > proj = "X5c/12c".        ##
+## Spherical projection proj = "Pa8c".             ##
+#####################################################
 from pygmt.baseline.parent_class import *
 
 class csection(cparent):
@@ -17,11 +22,7 @@ class csection(cparent):
         pygmtfig.plot(x=data[:,0], y=data[:,1], pen="3p,black,-")
       
     elif self.proj[0] == "P":
-      ## This needs to be figured out by a function
-      datahelp  = data[:,0]
-      data[:,0] = data[:,1]
-      data[:,1] = datahelp
-      ## Everything else is just fine
+      data[:,0], data[:,1] = data[:,1], data[:,0]
       
       self.data_to_pygmtfig(pygmtfig, ["WSne"], cT, data)
       

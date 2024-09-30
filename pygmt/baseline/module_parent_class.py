@@ -1,6 +1,17 @@
 import numpy
 import matplotlib.pyplot # type: ignore
 
+def get_step(arr):
+  
+  x0 = arr[0]
+  
+  for x in arr[1:]:
+    if (x != x0):
+      step = x-x0
+      break
+  
+  return step
+
 def export_cmap_to_cpt(cpallete, cfile, **kwargs):
   cmap = matplotlib.pyplot.get_cmap(cpallete, 255)
   

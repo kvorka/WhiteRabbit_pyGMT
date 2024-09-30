@@ -1,18 +1,11 @@
-#!/bin/bash
-#Kubo von Kvorkenstein, 2024
-source load_gmt6
-
-myPython - << EOF
+import subprocess
 from pygmt.cross_section import csection
 from pygmt.surface_plot import csurface
 
-####################################################################################################################################
-###  Python script for generating the cross-sections. For cartesian projection, set proj to "X5c/12c". For spherical projection  ###
-###  set proj to "Pa8c". Anything specific needs to be handled in the modules. Colorbar is prepared together with sections.      ###
-####################################################################################################################################
+subprocess.run("source load_gmt6")
 
 ## Create csection object and define the projection and colorpallete (from matplotlib.colors) to be used
-#csc = csection( proj="X5c/10c", cpallete="coolwarm", cmap="cmap.cpt" )
+csc = csection( proj="X5c/10c", cpallete="coolwarm", cmap="cmap.cpt" )
 
 ## Cross sections zonal jet
 #csc.color_bar( b1="-0.3", b2="0.3", unit="m/s", outfile="85-bar-vphi.pdf" )
@@ -32,16 +25,10 @@ from pygmt.surface_plot import csurface
 #csc.cross_section( infile="Ek3-080-mode2a-vrad.dat", outfile="080-mode2a-vr.pdf", cB=0.028, cT=0.6, xanot="xf0.5", yanot="yf30" )
 #csc.cross_section( infile="Ek3-080-mode2b-vrad.dat", outfile="080-mode2b-vr.pdf", cB=0.028, cT=1.0, xanot="xa0.5f0.5", yanot="yf30" )
 
-####################################################################################################################################
-###  Python script for generating the surface plots. Anything specific needs to be handled in the modules. Colorbar is prepared  ###
-###  together with sections. Only supported projection is W.                                                                     ###
-####################################################################################################################################
 ## Create csurface object and define the colorpallete (from matplotlib.colors) to be used
 csf = csurface( proj="W180/12", cpallete="coolwarm", cmap="cmap.cpt" )
 
 csf.color_bar( b1="-0.20", b2="0.20", unit="", outfile="85-bar-flux.pdf" )
 csf.surface_plot( infile="Ek3-085-mode2b-flux.dat", outfile="085-mode2b-fx.pdf", cB=0.20, cT=1.0, tgtcn="tgt-n.dat", tgtcs="tgt-s.dat")
 
-EOF
-
-rm cmap.cpt
+subprocess.run("rm -f map.cpt")

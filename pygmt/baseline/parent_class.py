@@ -1,9 +1,14 @@
 import pygmt
-from pygmt.baseline.cmap_to_cpt import *
+from pygmt.baseline.module_parent_class import *
 
 class cparent:
   
   def __init__(self, proj, cpallete, cmap):
+    pygmt.config( FONT_ANNOT_PRIMARY = 23, 
+                  MAP_ANNOT_OFFSET = "7p",
+                  MAP_TICK_LENGTH_PRIMARY = 0.10, 
+                  MAP_TICK_LENGTH_SECONDARY = 1.0 )
+    
     self.proj = proj
     self.cMap = cmap
     
@@ -20,35 +25,23 @@ class cparent:
     bar.savefig(outfile)
   
   def data_to_pygmtfig(self, pygmtfig, frame, cT, data):
-    pygmt.config( FONT_ANNOT_PRIMARY = 23, 
-                  MAP_ANNOT_OFFSET = "7p",
-                  MAP_TICK_LENGTH_PRIMARY = 0.10, 
-                  MAP_TICK_LENGTH_SECONDARY = 1.0 )
-    
     pygmt.makecpt( cmap = self.cMap, 
                    series = [-cT,cT], 
                    background = True )
     
-    region = [ data[:,0].min() , data[:,0].max() ,
-               data[:,1].min() , data[:,1].max() ]
+    region = [ data[:,0].min(), data[:,0].max() ,
+               data[:,1].min(), data[:,1].max() ]
     
-    for x,y in zip(data[:,0],data[1:,0]):
-      if (x != y):
-        step0 = y-x
-        break
+    spacing = [ get_step(data[:,0]) ,
+                get_step(data[:,1]) ]
     
-    for x,y in zip(data[:,1],data[1:,1]):
-      if (x != y):
-        step1 = y-x
-        break
-    
-    grid = pygmt.xyz2grd( x = data[:,0], 
-                          y = data[:,1], 
-                          z = data[:,2], 
-                          spacing = [step0,step1], 
+    grid = pygmt.xyz2grd( x = data[:,0],
+                          y = data[:,1],
+                          z = data[:,2],
+                          spacing = spacing,
                           region = region )
     
-    pygmtfig.grdimage( region = region, 
-                       projection = self.proj, 
-                       frame = frame, 
+    pygmtfig.grdimage( region = region,
+                       projection = self.proj,
+                       frame = frame,
                        grid = grid )
