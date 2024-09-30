@@ -2,6 +2,7 @@ import pygmt
 from pygmt.baseline.cmap_to_cpt import *
 
 class cparent:
+  
   def __init__(self, proj, cpallete, cmap):
     self.proj = proj
     self.cMap = cmap
@@ -15,7 +16,7 @@ class cparent:
     bar.text(text=b1,   x=2.585, y=2.10, font="60p,Helvetica", no_clip=True)
     bar.text(text=unit, x=3.000, y=2.10, font="60p,Helvetica", no_clip=True)
     bar.text(text=b2,   x=3.397, y=2.10, font="60p,Helvetica", no_clip=True)
-    
+
     bar.savefig(outfile)
   
   def data_to_pygmtfig(self, pygmtfig, frame, cT, data):
