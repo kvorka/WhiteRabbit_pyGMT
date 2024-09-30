@@ -2,7 +2,7 @@ program OutputIce
   use OutputIceMod
   implicit none
   
-  call harm_analysis_ice_sub('code/ice/crust/data_shape/Shape-', 'Shape')
-  call harm_analysis_ice_sub('code/ice/crust/data_topo/Topo-', 'Topo')
+  !call harm_analysis_ice_sub(pathin, jmax, 'Shape')
+  !call harm_analysis_ice_sub(pathin, jmax, 'Topo')
 
 end program OutputIce

@@ -1,59 +1,62 @@
 module OutputIceMod
   use Math
-  use IceConstants
+  use Harmsy
   implicit none
-
-  complex(kind=dbl), allocatable :: spectra_up(:), spectra_dn(:)
-  real(kind=dbl),    allocatable :: data_up(:,:), data_dn(:,:)
   
-  public  :: harm_analysis_ice_sub
+  public  :: harm_analysis_surfDeform_sub
   private :: get_spectra_sub
  
   contains
 
-  subroutine harm_analysis_ice_sub(path, opt)
-    character(len=*), intent(in) :: path, opt
+  subroutine harm_analysis_surfDeform_sub(pathin, jmax, identifier)
+    character(len=*),  intent(in)  :: pathin, identifier
+    integer,           intent(in)  :: jmax
+    complex(kind=dbl), allocatable :: spectra_up(:), spectra_dn(:)
+    real(kind=dbl),    allocatable :: data_up(:,:), data_dn(:,:)
     
-    allocate( spectra_up(jmax_ice*(jmax_ice+1)/2+jmax_ice+1) ); spectra_up = cmplx(0._dbl, 0._dbl, kind=dbl)
-    allocate( spectra_dn(jmax_ice*(jmax_ice+1)/2+jmax_ice+1) ); spectra_dn = cmplx(0._dbl, 0._dbl, kind=dbl)
+    allocate( spectra_up(jmax*(jmax+1)/2+jmax+1) ); spectra_up = czero
+    allocate( spectra_dn(jmax*(jmax+1)/2+jmax+1) ); spectra_dn = czero
     
-    call get_spectra_sub(path)
+    call get_spectra_sub(pathin)
     
-    allocate( data_up(2*nth,nth) ); data_up = 0._dbl
-    allocate( data_dn(2*nth,nth) ); data_dn = 0._dbl
+    allocate( data_up(2*nth,nth) ); data_up = zero
+    allocate( data_dn(2*nth,nth) ); data_dn = zero
     
       !Preved spektrum na grid
-      call toGrid_sub(jmax_ice, spectra_dn, data_dn)
-      call toGrid_sub(jmax_ice, spectra_up, data_up)
+      call harmsy_sub(jmax, 1, spectra_up, data_up)
+      call harmsy_sub(jmax, 1, spectra_dn, data_dn)
     
     deallocate( spectra_up, spectra_dn )
     
-    call out_data_sub(opt//'-dn.dat', data_dn)
-    call out_data_sub(opt//'-up.dat', data_up)
-
-    open(unit=8, file='ice_ranges_'//opt//'_dn_max', status='new', action='write')
-      write(8,*) ceiling( maxval(data_dn) )
-    close(8)
-    open(unit=8, file='ice_ranges_'//opt//'_dn_min', status='new', action='write')
-      write(8,*) floor( minval(data_dn) )
-    close(8)
-    open(unit=8, file='ice_ranges_'//opt//'_dn_cnt', status='new', action='write')
-      write(8,*) ceiling( ( (( maxval(data_dn) - minval(data_dn) ) / 8 ) / 50 ) ) * 50
-    close(8)
-
-    open(unit=8, file='ice_ranges_'//opt//'_up_max', status='new', action='write')
-      write(8,*) ceiling( maxval(data_up) )
-    close(8)
-    open(unit=8, file='ice_ranges_'//opt//'_up_min', status='new', action='write')
-      write(8,*) floor( minval(data_up) )
-    close(8)
-    open(unit=8, file='ice_ranges_'//opt//'_up_cnt', status='new', action='write')
-      write(8,*) ceiling( ( ( ( maxval(data_up) - minval(data_up) ) / 8 ) / 50 ) ) * 50
-    close(8)
+      open(unit=8, file=identifier//'-up.range', status='new', action='write')
+        write(8,*) maxval(data_up)
+        write(8,*) minval(data_up)
+      close(8)
+      
+      open(unit=8, file=identifier//'-up.dat', status='new', action='write')
+        do ith = 0, 180
+          do iph = 1, 360
+            write(8,*) iph, ith-90, data_up(iph,ith)
+          end do
+        end do
+      close(8)
+      
+      open(unit=8, file=identifier//'-dn.range', status='new', action='write')
+        write(8,*) maxval(data_dn)
+        write(8,*) minval(data_dn)
+      close(8)
+      
+      open(unit=8, file=identifier//'-dn.dat', status='new', action='write')
+        do ith = 0, 180
+          do iph = 1, 360
+            write(8,*) iph, ith-90, data_dn(iph,ith)
+          end do
+        end do
+      close(8)
     
     deallocate( data_up, data_dn )
     
-  end subroutine harm_analysis_ice_sub
+  end subroutine harm_analysis_surfDeform_sub
 
     subroutine get_spectra_sub(path)
       character(len=*), intent(in) :: path
