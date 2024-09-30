@@ -2,7 +2,7 @@
 #Kubo von Kvorkenstein, 2024
 source load_gmt6
 
-~/myPython/bin/python - << EOF
+myPython - << EOF
 from pygmt.cross_section import csection
 from pygmt.surface_plot import csurface
 
