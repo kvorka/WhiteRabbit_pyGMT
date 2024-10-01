@@ -24,8 +24,16 @@ program OutputOcean
   
   call print_tgtcylinder_sub(.True.)
   
-  call harm_analysis_flux_sub( filein     = '/home/kvorka/WorkDir/esa_grant/0.85/mod12/flux-averaged.spec', &
-                               jmax       = 297,                         &
-                               identifier = 'Ek3-085-mode2b'             )
+  call harm_analysis_flux_sub( filein     = '/home/kvorka/WorkDir/esa_grant/0.80/mod10/flux-averaged.spec', &
+                               jmax       = 177,        &
+                               identifier = '080-mode1' )
+  
+  call harm_analysis_flux_sub( filein     = '/home/kvorka/WorkDir/esa_grant/0.80/mod12/flux-averaged.spec', &
+                               jmax       = 237,         &
+                               identifier = '080-mode2a' )
+  
+  call harm_analysis_flux_sub( filein     = '/home/kvorka/WorkDir/esa_grant/0.80/mod13/flux-averaged.spec', &
+                               jmax       = 237,         &
+                               identifier = '080-mode2b' )
 
 end program OutputOcean

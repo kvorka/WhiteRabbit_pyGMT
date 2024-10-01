@@ -25,8 +25,9 @@ csc = csection( proj="X5c/10c", cpallete="coolwarm", cmap="cmap.cpt" )
 
 ## Create csurface object and define the colorpallete (from matplotlib.colors) to be used
 csf = csurface( proj="W180/12", cpallete="coolwarm", cmap="cmap.cpt" )
-
-csf.color_bar( b1="-0.20", b2="0.20", unit="", outfile="85-bar-flux.pdf" )
-csf.surface_plot( inf="Ek3-085-mode2b-flux.dat", outf="085-mode2b-fx.pdf", cB=0.20, cT=1.0, tgtn="tgt-n.dat", tgts="tgt-s.dat")
+csf.vcolor_bar( b1="0.70", b2="1.30", unit="q/@!\257q", outfile="80-bar-flux.pdf" )
+csf.surface_plot( inf="080-mode1-flux.dat", outf="080-mode1-fx.pdf", cB=0.30, cT=1.0, tgtn="tgt-n.dat", tgts="tgt-s.dat")
+csf.surface_plot( inf="080-mode2a-flux.dat", outf="080-mode2a-fx.pdf", cB=0.30, cT=0.8, tgtn="tgt-n.dat", tgts="tgt-s.dat")
+csf.surface_plot( inf="080-mode2b-flux.dat", outf="080-mode2b-fx.pdf", cB=0.30, cT=0.8, tgtn="tgt-n.dat", tgts="tgt-s.dat")
 
 subprocess.run("rm -f cmap.cpt", shell=True)

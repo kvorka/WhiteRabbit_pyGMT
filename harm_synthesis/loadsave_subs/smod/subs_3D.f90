@@ -1,4 +1,4 @@
-submodule (Load) subs_3D
+submodule (Loadsave) subs_3D
   implicit none; contains
   
   module subroutine load_spectra_3d_sub(filein, dimjml, dimr, r, spectra)
