@@ -13,6 +13,9 @@ $compile -c harm_synthesis/libraries/math_subs/modules/*.f90
 $compile -c harm_synthesis/libraries/loadsave_subs/Loadsave.f90
 $compile -c harm_synthesis/libraries/loadsave_subs/smod/*.f90
 
+$compile -c harm_synthesis/libraries/tgtcyl_subs/tgt_cylinder.f90
+$compile -c harm_synthesis/libraries/tgtcyl_subs/smod/*.f90
+
 $compile -c harm_synthesis/ocean/OutputOceanMod.f90
 $compile -c harm_synthesis/ocean/smod/*.f90
 

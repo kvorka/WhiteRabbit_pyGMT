@@ -1,9 +1,10 @@
 program Output_code
   use OutputOceanMod
   use OutputIceMod
+  use tgt_cylinder
   implicit none
   
-  !call print_tgtcylinder_sub(.False.)
+  !call print_tgtcylinder_3d_sub()
   !
   !call harm_analysis_velc_sub( filein     = '/home/kvorka/WorkDir/esa_grant/0.85/mod9/velc-averaged.spec', &
   !                             nd         = 73,                          &
@@ -23,7 +24,7 @@ program Output_code
   !                             fac        = 3.0d-4 / 10 * 0.21 / 0.17,   &
   !                             identifier = 'Ek3-085-mode2b'             )
   
-  call print_tgtcylinder_sub(.True.)
+  call print_tgtcylinder_2d_sub()
   
   call harm_analysis_flux_sub( filein     = '/home/kvorka/WorkDir/esa_grant/0.80/mod10/flux-averaged.spec', &
                                jmax       = 177,        &

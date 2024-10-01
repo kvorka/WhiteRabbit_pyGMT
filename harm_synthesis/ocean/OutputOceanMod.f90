@@ -22,10 +22,6 @@ module OutputOceanMod
       integer,          intent(in) :: nd, jmax
       real(kind=dbl),   intent(in) :: fac
     end subroutine harm_analysis_velc_sub
-    
-    module subroutine print_tgtcylinder_sub(surface)
-      logical, intent(in) :: surface
-    end subroutine print_tgtcylinder_sub
   end interface
   
 end module OutputOceanMod
