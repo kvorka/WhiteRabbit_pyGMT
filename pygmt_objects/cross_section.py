@@ -17,11 +17,13 @@ class csection(cparent):
     
     if self.proj[0] == "X":
       self.data_to_pygmtfig(fig, ["WSne",xnt,ynt], cT, get_data(fname=inf, rescale=cB))
+      
       if tgt != None: fig.plot( data=numpy.genfromtxt(tgt), pen="3p,black,-")
       #fig.text(text="0.5", x=0.5, y=-10.0, no_clip=True)
       
     elif self.proj[0] == "P":
       self.data_to_pygmtfig(fig, ["WSne"], cT, get_data(fname=inf, rescale=cB, revert=True))
+      
       if tgt != None: fig.plot(data=numpy.genfromtxt(tgt), pen="3p,black,-")
     
     fig.savefig(outf)

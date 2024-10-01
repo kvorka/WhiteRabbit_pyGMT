@@ -1,3 +1,6 @@
+#######################################################
+## Python module supporting the parent_class.py      ##
+#######################################################
 import numpy             # type: ignore
 import matplotlib.pyplot # type: ignore
 

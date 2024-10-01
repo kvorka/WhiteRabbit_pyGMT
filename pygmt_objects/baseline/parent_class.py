@@ -1,3 +1,7 @@
+###############################################################################################
+## Python class for data -> grid -> pygmt.Fig. Every other class is derived from this file.  ##
+## Routines for color_bar and color scale definition are provided within this class.         ##
+###############################################################################################
 import pygmt # type: ignore
 from pygmt_objects.baseline.module_parent_class import *
 

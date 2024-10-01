@@ -15,6 +15,7 @@ class csurface(cparent):
     fig = pygmt.Figure()
     
     self.data_to_pygmtfig(fig, ["WSne"], cT, get_data(fname=inf, rescale=cB))
+    
     if tgtn != None: fig.plot(data = numpy.genfromtxt("tgt-n.dat"), pen="2p,-")
     if tgts != None: fig.plot(data = numpy.genfromtxt("tgt-s.dat"), pen="2p,-")
     
