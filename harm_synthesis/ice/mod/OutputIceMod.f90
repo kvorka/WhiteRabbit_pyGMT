@@ -61,34 +61,36 @@ module OutputIceMod
     subroutine get_spectra_sub(path)
       character(len=*), intent(in) :: path
       character(len=10)            :: subor
-      integer                      :: j, m, n, error
+      integer                      :: ijm, ierror
       complex(kind=dbl)            :: u_dn, u_up
-    
-      !Najdi najnovsi subor s tvarovymi koeficientami
-      n = 0
+      
+      ijm = -1
+      
       do
-        write(subor, '(1I4)') n
-    
+        ijm = ijm + 1
+        write(subor,'(1I4)') in
+        
         open(unit=8, file=path//trim(adjustl(subor))//'.dat', status='old', action='read', iostat=error)
-        if (error /= 0) then
-          write(subor, '(1I4)') n-1
-          exit
-        end if
+          if (ierror /= 0) then
+            write(subor,'(1I4)') ijm-1
+            exit
+          end if
         close(8)
-    
-        n = n + 1
       end do
       
-      !Nacitaj spektrum najnovsich koeficientov
       open(unit=8, file=path//trim(adjustl(subor))//'.dat', status='old', action='read')
-    
-      do
-        read(8,*,iostat=error) j, m, u_dn, u_up; if (error /= 0) exit
+      
+        do
+          read(8,*,iostat=ierror) ijm, u_dn, u_up
+          
+          if (idateerror /= 0) then
+            exit
+          else
+            spectra_dn(ijm) = u_dn
+            spectra_up(ijm) = u_up
+          end if
+        end do
         
-        spectra_dn(j*(j+1)/2+m+1) = u_dn
-        spectra_up(j*(j+1)/2+m+1) = u_up
-      end do
-    
       close(8)
       
     end subroutine get_spectra_sub

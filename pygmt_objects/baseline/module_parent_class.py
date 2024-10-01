@@ -1,5 +1,14 @@
-import numpy
+import numpy             # type: ignore
 import matplotlib.pyplot # type: ignore
+
+def get_data(fname, rescale=1, revert=False):
+  
+  data = numpy.genfromtxt( fname=fname, 
+                           converters={ 2: lambda x: float(x) / rescale } )
+  
+  if revert: data[:,0], data[:,1] = data[:,1], data[:,0]
+  
+  return data
 
 def get_step(arr):
   

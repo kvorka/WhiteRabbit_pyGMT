@@ -1,4 +1,4 @@
-import pygmt
+import pygmt # type: ignore
 from pygmt_objects.baseline.module_parent_class import *
 
 class cparent:
