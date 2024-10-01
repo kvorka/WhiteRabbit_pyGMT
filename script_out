@@ -1,19 +1,30 @@
 #!/bin/bash
-#Kubo von Kvorkenstein, 2024
+###########################################################################################
+####                              COMPILER SET UP                                      ####
+###########################################################################################
 compile="gfortran-12 -Ofast -march=native -flto=auto -fwhole-program -fopenmp"
 
-$compile -c harm_synthesis/math/Math.f90
-$compile -c harm_synthesis/math/Constants.f90
-$compile -c harm_synthesis/math/Harmsy.f90
-$compile -c harm_synthesis/math/Vector_analysis.f90
+###########################################################################################
+####                            COMPILATION OF THE BASELINE                            ####
+###########################################################################################
+$compile -c harm_synthesis/libraries/math_subs/Math.f90
+$compile -c harm_synthesis/libraries/math_subs/modules/*.f90
 
-$compile -c harm_synthesis/loadsave_subs/Loadsave.f90
-$compile -c harm_synthesis/loadsave_subs/smod/*.f90
+$compile -c harm_synthesis/libraries/loadsave_subs/Loadsave.f90
+$compile -c harm_synthesis/libraries/loadsave_subs/smod/*.f90
 
-$compile -c harm_synthesis/ocean/mod/OutputOceanMod.f90
-$compile -c harm_synthesis/ocean/mod/smod/*.f90
+$compile -c harm_synthesis/ocean/OutputOceanMod.f90
+$compile -c harm_synthesis/ocean/smod/*.f90
 
-$compile harm_synthesis/ocean/OutputOcean.f90 *.o -o code_out
+$compile -c harm_synthesis/ice/OutputIceMod.f90
 
+###########################################################################################
+####                                    LINKING                                        ####
+###########################################################################################
+$compile harm_synthesis/Output_code.f90 *.o -o code_out
+
+###########################################################################################
+####                                 RUN AND CLEAN                                     ####
+###########################################################################################
 ./code_out
 rm *.o *.smod *.mod code_out

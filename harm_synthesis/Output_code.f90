@@ -1,5 +1,6 @@
-program OutputOcean
+program Output_code
   use OutputOceanMod
+  use OutputIceMod
   implicit none
   
   !call print_tgtcylinder_sub(.False.)
@@ -36,4 +37,4 @@ program OutputOcean
                                jmax       = 237,         &
                                identifier = '080-mode2b' )
 
-end program OutputOcean
+end program Output_code
