@@ -12,7 +12,7 @@ submodule(OutputOceanMod) Temp
     
     allocate( r(n_out), temp(jms,n_out), grdt(0:nth,n_out) )
       
-      call load_spectra_sub(filein, jms, nd, r, temp)
+      call load_spectra_3d_sub(filein, jms, nd, r, temp)
       
       !$omp parallel private (grdxyz)
       allocate( grdxyz(2*nth,0:nth) )
@@ -28,7 +28,7 @@ submodule(OutputOceanMod) Temp
       deallocate( grdxyz )
       !$omp end parallel
       
-      call save_data_sub( identifier//'-temp.range', identifier//'-temp.dat', r, grdt, 'n' )
+      call save_data_3d_sub( identifier//'-temp.range', identifier//'-temp.dat', r, grdt, 'n' )
       
     deallocate( r, temp, grdt )
     

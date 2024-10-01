@@ -3,8 +3,13 @@
 compile="gfortran-12 -Ofast -march=native -flto=auto -fwhole-program -fopenmp"
 
 $compile -c harm_synthesis/math/Math.f90
+$compile -c harm_synthesis/math/Constants.f90
 $compile -c harm_synthesis/math/Harmsy.f90
 $compile -c harm_synthesis/math/Vector_analysis.f90
+
+$compile -c harm_synthesis/loadsave_subs/Loadsave.f90
+$compile -c harm_synthesis/loadsave_subs/smod/*.f90
+
 $compile -c harm_synthesis/ocean/mod/OutputOceanMod.f90
 $compile -c harm_synthesis/ocean/mod/smod/*.f90
 

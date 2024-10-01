@@ -14,7 +14,7 @@ submodule(OutputOceanMod) Velc
     
     allocate( r(n_out), velc(jmv,n_out), grdptr(3,0:nth,n_out) )
       
-      call load_spectra_sub(filein, jmv, nd, r, velc)
+      call load_spectra_3d_sub(filein, jmv, nd, r, velc)
       
       !$omp parallel private (ijml,spcxyz,grdxyz)
       allocate( spcxyz(3,jms1), grdxyz(3,2*nth,0:nth) )
@@ -34,9 +34,9 @@ submodule(OutputOceanMod) Velc
       deallocate(spcxyz, grdxyz)
       !$omp end parallel
       
-      call save_data_sub( identifier//'-radvelc.range', identifier//'-vrad.dat', r, grdptr(1,:,:), 'n' )
-      call save_data_sub( identifier//'-thtvelc.range', identifier//'-vtht.dat', r, grdptr(2,:,:), 'n' )
-      call save_data_sub( identifier//'-phivelc.range', identifier//'-vphi.dat', r, grdptr(3,:,:), 'n' )
+      call save_data_3d_sub( identifier//'-radvelc.range', identifier//'-vrad.dat', r, grdptr(1,:,:), 'n' )
+      call save_data_3d_sub( identifier//'-thtvelc.range', identifier//'-vtht.dat', r, grdptr(2,:,:), 'n' )
+      call save_data_3d_sub( identifier//'-phivelc.range', identifier//'-vphi.dat', r, grdptr(3,:,:), 'n' )
       
     deallocate( r, velc, grdptr )
     

@@ -2,7 +2,6 @@ program OutputIce
   use OutputIceMod
   implicit none
   
-  !call harm_analysis_ice_sub(pathin, jmax, 'Shape')
-  !call harm_analysis_ice_sub(pathin, jmax, 'Topo')
+  !! TODO !!
 
 end program OutputIce
