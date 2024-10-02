@@ -1,6 +1,6 @@
-module Loadsave
-  use Math
-  use Constants
+module loadsave
+  use math
+  use constants
   implicit none
 
   interface
@@ -30,4 +30,4 @@ module Loadsave
     end subroutine save_data_3d_sub
   end interface
   
-end module Loadsave
+end module loadsave

@@ -2,32 +2,32 @@
 ###########################################################################################
 ####                              COMPILER SET UP                                      ####
 ###########################################################################################
-compile="gfortran-12 -Ofast -march=native -flto=auto -fwhole-program -fopenmp -fcheck=bounds"
+compile="gfortran-12 -Ofast -march=native -flto=auto -fwhole-program -fopenmp"
 
 ###########################################################################################
 ####                            COMPILATION OF THE BASELINE                            ####
 ###########################################################################################
-$compile -c harm_synthesis/libraries/math_subs/Math.f90
-$compile -c harm_synthesis/libraries/math_subs/modules/*.f90
+$compile -c harm_synthesis/libraries/math/modules/*.f90
+$compile -c harm_synthesis/libraries/math/math.f90
 
-$compile -c harm_synthesis/libraries/loadsave_subs/Loadsave.f90
-$compile -c harm_synthesis/libraries/loadsave_subs/smod/*.f90
+$compile -c harm_synthesis/libraries/loadsave/loadsave.f90
+$compile -c harm_synthesis/libraries/loadsave/smod/*.f90
 
-$compile -c harm_synthesis/libraries/tgtcyl_subs/tgt_cylinder.f90
-$compile -c harm_synthesis/libraries/tgtcyl_subs/smod/*.f90
+$compile -c harm_synthesis/libraries/tgtcyl/tgt_cylinder.f90
+$compile -c harm_synthesis/libraries/tgtcyl/smod/*.f90
 
-$compile -c harm_synthesis/ocean/OutputOceanMod.f90
+$compile -c harm_synthesis/ocean/ocean.f90
 $compile -c harm_synthesis/ocean/smod/*.f90
 
-$compile -c harm_synthesis/ice/OutputIceMod.f90
+$compile -c harm_synthesis/ice/ice.f90
 
 ###########################################################################################
 ####                                    LINKING                                        ####
 ###########################################################################################
-$compile harm_synthesis/Output_code.f90 *.o -o code_out
+$compile harm_synthesis/output.f90 *.o -o code_out
 
 ###########################################################################################
 ####                                 RUN AND CLEAN                                     ####
 ###########################################################################################
-./code_out
-rm *.o *.smod *.mod code_out
+#./code_out
+#rm *.o *.smod *.mod code_out

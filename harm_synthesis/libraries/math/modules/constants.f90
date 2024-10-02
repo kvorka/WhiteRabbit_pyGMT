@@ -1,5 +1,5 @@
-module Constants
-  use Math
+module constants
+  use math
   implicit none
   
   real(kind=dbl), parameter :: r_ud_ocean = 0.90_dbl
@@ -7,4 +7,4 @@ module Constants
   real(kind=dbl), parameter :: r_out = 1._dbl
   integer,        parameter :: n_out = 101
   
-end module Constants
+end module constants

@@ -1,5 +1,5 @@
-module Vector_analysis
-  use Math
+module vector_analysis
+  use math
   implicit none; public; contains
   
   pure subroutine vec2scals_sub(jmax, vec, xyz)
@@ -118,4 +118,4 @@ module Vector_analysis
     
   end function cleb1_fn
   
-end module Vector_analysis
+end module vector_analysis

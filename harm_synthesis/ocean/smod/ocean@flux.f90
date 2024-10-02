@@ -1,4 +1,4 @@
-submodule(OutputOceanMod) Flux
+submodule (ocean) flux
   implicit none; contains
 
   module subroutine harm_analysis_flux_sub(filein, jmax, identifier)
@@ -36,4 +36,4 @@ submodule(OutputOceanMod) Flux
     
   end subroutine harm_analysis_flux_sub
   
-end submodule Flux
+end submodule flux

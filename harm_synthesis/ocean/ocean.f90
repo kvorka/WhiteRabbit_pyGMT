@@ -1,9 +1,9 @@
-module OutputOceanMod
-  use Math
-  use Constants
-  use Harmsy
-  use Vector_analysis
-  use Loadsave
+module ocean
+  use math
+  use constants
+  use harmsy
+  use vector_analysis
+  use loadsave
   implicit none; public
   
   interface
@@ -24,5 +24,5 @@ module OutputOceanMod
     end subroutine harm_analysis_velc_sub
   end interface
   
-end module OutputOceanMod
+end module ocean
   

@@ -1,4 +1,4 @@
-submodule (tgt_cylinder) tgt_3D
+submodule (tgt_cylinder) subs_3d
   implicit none; contains
   
   module subroutine print_tgtcylinder_3d_sub()
@@ -29,4 +29,4 @@ submodule (tgt_cylinder) tgt_3D
     
   end subroutine print_tgtcylinder_3d_sub
   
-end submodule tgt_3D
+end submodule subs_3d

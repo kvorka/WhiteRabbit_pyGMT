@@ -1,8 +1,8 @@
-module OutputIceMod
-  use Math
-  use Constants
-  use Harmsy
-  use Loadsave
+module ice
+  use math
+  use constants
+  use harmsy
+  use loadsave
   implicit none; public; contains
 
   subroutine harm_analysis_surfDeform_sub(filein, jmax, identifier)
@@ -24,4 +24,4 @@ module OutputIceMod
     
   end subroutine harm_analysis_surfDeform_sub
     
-end module OutputIceMod
+end module ice

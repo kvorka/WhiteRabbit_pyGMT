@@ -1,5 +1,5 @@
-module Harmsy
-  use Math
+module harmsy
+  use math
   implicit none; public; contains
   
   pure subroutine harmsy_sub(jmax, nscals, spectra, gridvals)
@@ -92,4 +92,4 @@ module Harmsy
     
   end subroutine harmsy_sub
   
-end module Harmsy
+end module harmsy

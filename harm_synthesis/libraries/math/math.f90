@@ -1,4 +1,4 @@
-module Math
+module math
   use iso_fortran_env, only: real64
   implicit none; public
   
@@ -13,4 +13,4 @@ module Math
   complex(kind=dbl), parameter :: cunit = cmplx(zero, one , kind=dbl)
   complex(kind=dbl), parameter :: cone  = cmplx(one , zero, kind=dbl)
   
-end module Math
+end module math

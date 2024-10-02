@@ -1,6 +1,6 @@
-program Output_code
-  use OutputOceanMod
-  use OutputIceMod
+program output
+  use ocean
+  use ice
   use tgt_cylinder
   implicit none
   
@@ -38,4 +38,4 @@ program Output_code
   !                             jmax       = 321,         &
   !                             identifier = '90-mode2b' )
 
-end program Output_code
+end program output

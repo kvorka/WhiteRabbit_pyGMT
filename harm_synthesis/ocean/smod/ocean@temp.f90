@@ -1,4 +1,4 @@
-submodule(OutputOceanMod) Temp
+submodule (ocean) temp
   implicit none; contains
   
   module subroutine harm_analysis_temp_sub(filein, nd, jmax, identifier)
@@ -34,4 +34,4 @@ submodule(OutputOceanMod) Temp
     
   end subroutine harm_analysis_temp_sub
   
-end submodule Temp
+end submodule temp

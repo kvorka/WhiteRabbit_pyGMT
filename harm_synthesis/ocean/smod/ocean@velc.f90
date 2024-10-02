@@ -1,4 +1,4 @@
-submodule(OutputOceanMod) Velc
+submodule (ocean) velc
   implicit none; contains
   
   module subroutine harm_analysis_velc_sub(filein, nd, jmax, fac, identifier)
@@ -42,4 +42,4 @@ submodule(OutputOceanMod) Velc
     
   end subroutine harm_analysis_velc_sub
   
-end submodule Velc
+end submodule velc
