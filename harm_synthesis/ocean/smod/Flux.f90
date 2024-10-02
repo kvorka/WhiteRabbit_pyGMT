@@ -15,8 +15,12 @@ submodule(OutputOceanMod) Flux
       
       call load_spectra_2d_sub(filein, jms, spectra)
       
-      fac        = sq4pi / real( spectra(1), kind=dbl)
-      spectra(1) = czero
+      if ( abs(spectra(1)%re) > zero ) then
+        fac        = sq4pi / real( spectra(1), kind=dbl)
+        spectra(1) = czero
+      else
+        fac = one
+      end if
       
       do ij = 1, jmax
         ijm = ij*(ij+1)/2+1

@@ -13,7 +13,7 @@ submodule (Loadsave) subs_2D
       do
         read(1,*,iostat=error) ijm, valjm
         
-        if (error /= 0) then
+        if ( (error /= 0) .or. (ijm > dimjms) ) then
           exit
         else
           spectra(ijm) = valjm
