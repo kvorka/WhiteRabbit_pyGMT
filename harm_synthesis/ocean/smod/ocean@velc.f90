@@ -1,7 +1,7 @@
 submodule (ocean) velc
   implicit none; contains
   
-  module subroutine harm_analysis_velc_sub(filein, nd, jmax, fac, identifier)
+  module subroutine harm_synthesis_velc_sub(filein, nd, jmax, fac, identifier)
     character(len=*),  intent(in)  :: filein, identifier
     integer,           intent(in)  :: nd, jmax
     real(kind=dbl),    intent(in)  :: fac
@@ -40,6 +40,6 @@ submodule (ocean) velc
       
     deallocate( r, velc, grdptr )
     
-  end subroutine harm_analysis_velc_sub
+  end subroutine harm_synthesis_velc_sub
   
 end submodule velc

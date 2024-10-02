@@ -1,7 +1,7 @@
 submodule (ocean) flux
   implicit none; contains
 
-  module subroutine harm_analysis_flux_sub(filein, jmax, identifier)
+  module subroutine harm_synthesis_flux_sub(filein, jmax, identifier)
     character(len=*),  intent(in)  :: filein, identifier
     integer,           intent(in)  :: jmax
     integer                        :: ij, ijm, jms
@@ -34,6 +34,6 @@ submodule (ocean) flux
       
     deallocate( spectra, data_flux )
     
-  end subroutine harm_analysis_flux_sub
+  end subroutine harm_synthesis_flux_sub
   
 end submodule flux

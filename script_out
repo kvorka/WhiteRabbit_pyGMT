@@ -7,14 +7,14 @@ compile="gfortran-12 -Ofast -march=native -flto=auto -fwhole-program -fopenmp"
 ###########################################################################################
 ####                            COMPILATION OF THE BASELINE                            ####
 ###########################################################################################
-$compile -c harm_synthesis/libraries/math/modules/*.f90
-$compile -c harm_synthesis/libraries/math/math.f90
+$compile -c harm_synthesis/modules/math/math.f90
+$compile -c harm_synthesis/modules/math/mods/*.f90
 
-$compile -c harm_synthesis/libraries/loadsave/loadsave.f90
-$compile -c harm_synthesis/libraries/loadsave/smod/*.f90
+$compile -c harm_synthesis/modules/loadsave/loadsave.f90
+$compile -c harm_synthesis/modules/loadsave/smod/*.f90
 
-$compile -c harm_synthesis/libraries/tgtcyl/tgt_cylinder.f90
-$compile -c harm_synthesis/libraries/tgtcyl/smod/*.f90
+$compile -c harm_synthesis/modules/tgtcyl/tgt_cylinder.f90
+$compile -c harm_synthesis/modules/tgtcyl/smod/*.f90
 
 $compile -c harm_synthesis/ocean/ocean.f90
 $compile -c harm_synthesis/ocean/smod/*.f90
@@ -29,5 +29,5 @@ $compile harm_synthesis/output.f90 *.o -o code_out
 ###########################################################################################
 ####                                 RUN AND CLEAN                                     ####
 ###########################################################################################
-#./code_out
-#rm *.o *.smod *.mod code_out
+./code_out
+rm *.o *.smod *.mod code_out

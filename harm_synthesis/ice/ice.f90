@@ -5,7 +5,7 @@ module ice
   use loadsave
   implicit none; public; contains
 
-  subroutine harm_analysis_surfDeform_sub(filein, jmax, identifier)
+  subroutine harm_synthesis_surfDeform_sub(filein, jmax, identifier)
     character(len=*),  intent(in)  :: filein, identifier
     integer,           intent(in)  :: jmax
     integer                        :: ij, ijm, jms
@@ -22,6 +22,6 @@ module ice
       
     deallocate( spectra, data_deform )
     
-  end subroutine harm_analysis_surfDeform_sub
+  end subroutine harm_synthesis_surfDeform_sub
     
 end module ice
