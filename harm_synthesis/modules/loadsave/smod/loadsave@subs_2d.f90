@@ -1,4 +1,4 @@
-submodule (Loadsave) subs_2D
+submodule (loadsave) subs_2D
   implicit none; contains
   
   module subroutine load_spectra_2d_sub(filein, dimjms, spectra)

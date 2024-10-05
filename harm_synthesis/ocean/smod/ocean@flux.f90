@@ -30,6 +30,7 @@ submodule (ocean) flux
       
       call harmsy_sub(jmax, 1, spectra, data_flux)
       
+      call save_data_1d_sub(identifier//'-flux-1d.dat', data_flux, 's')
       call save_data_2d_sub(identifier//'-flux.range', identifier//'-flux.dat', data_flux, 'n')
       
     deallocate( spectra, data_flux )

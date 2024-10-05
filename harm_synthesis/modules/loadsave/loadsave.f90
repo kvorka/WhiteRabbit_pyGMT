@@ -4,6 +4,12 @@ module loadsave
   implicit none
 
   interface
+    module subroutine save_data_1d_sub(file_data, grddata, eqsim)
+      character(len=*), intent(in) :: file_data
+      real(kind=dbl),   intent(in) :: grddata(2*nth,0:nth)
+      character,        intent(in) :: eqsim
+    end subroutine save_data_1d_sub
+    
     module subroutine load_spectra_2d_sub(filein, dimjms, spectra)
       character(len=*),  intent(in)  :: filein
       integer,           intent(in)  :: dimjms
