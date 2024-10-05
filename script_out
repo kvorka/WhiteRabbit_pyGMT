@@ -7,17 +7,37 @@ compile="gfortran-12 -Ofast -march=native -flto=auto -fwhole-program -fopenmp"
 ###########################################################################################
 ####                            COMPILATION OF THE BASELINE                            ####
 ###########################################################################################
-$compile -c harm_synthesis/modules/math/math.f90
-$compile -c harm_synthesis/modules/math/mods/*.f90
+$compile -c harm_synthesis/modules/math.f90
 
 $compile -c harm_synthesis/modules/loadsave/loadsave.f90
-$compile -c harm_synthesis/modules/loadsave/smod/*.f90
+  $compile -c harm_synthesis/modules/loadsave/smod/loadsave@subs_1d.f90 &
+  $compile -c harm_synthesis/modules/loadsave/smod/loadsave@subs_2d.f90 &
+  $compile -c harm_synthesis/modules/loadsave/smod/loadsave@subs_3d.f90 &
+wait
 
 $compile -c harm_synthesis/modules/tgtcyl/tgt_cylinder.f90
-$compile -c harm_synthesis/modules/tgtcyl/smod/*.f90
+  $compile -c harm_synthesis/modules/tgtcyl/smod/tgt_cylinder@subs_2d.f90 &
+  $compile -c harm_synthesis/modules/tgtcyl/smod/tgt_cylinder@subs_3d.f90 &
+wait
+
+$compile -c harm_synthesis/modules/sphvectors/sphvectors.f90
+  $compile -c harm_synthesis/modules/sphvectors/smod/sphvectors@cleb.f90 &
+  $compile -c harm_synthesis/modules/sphvectors/smod/sphvectors@vec2scals.f90 &
+  $compile -c harm_synthesis/modules/sphvectors/smod/sphvectors@xyz.f90 &
+wait
+
+$compile -c harm_synthesis/modules/harmsy/harmsy.f90
+  $compile -c harm_synthesis/modules/harmsy/smod/harmsy@init.f90 &
+  $compile -c harm_synthesis/modules/harmsy/smod/harmsy@harmsy1.f90 &
+  $compile -c harm_synthesis/modules/harmsy/smod/harmsy@harmsy3.f90 &
+  $compile -c harm_synthesis/modules/harmsy/smod/harmsy@harmsy4.f90 &
+wait
 
 $compile -c harm_synthesis/ocean/ocean.f90
-$compile -c harm_synthesis/ocean/smod/*.f90
+  $compile -c harm_synthesis/ocean/smod/ocean@flux.f90 &
+  $compile -c harm_synthesis/ocean/smod/ocean@temp.f90 &
+  $compile -c harm_synthesis/ocean/smod/ocean@velc.f90 &
+wait
 
 $compile -c harm_synthesis/ice/ice.f90
 
@@ -29,5 +49,5 @@ $compile harm_synthesis/output.f90 *.o -o code_out
 ###########################################################################################
 ####                                 RUN AND CLEAN                                     ####
 ###########################################################################################
-./code_out
+#./code_out
 rm *.o *.smod *.mod code_out

@@ -1,8 +1,7 @@
 module ice
   use math
-  use constants
-  use harmsy
   use loadsave
+  use harmsy
   implicit none; public; contains
 
   subroutine harm_synthesis_surfDeform_sub(filein, jmax, identifier)

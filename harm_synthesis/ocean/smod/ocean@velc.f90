@@ -27,7 +27,7 @@ submodule (ocean) velc
           end do
           
           call vec2scals_sub(jmax, velc(:,ir), spcxyz)
-          call harmsy_sub(jmax+1, 3, spcxyz, grdxyz)
+          call harmsy3_sub(jmax+1, spcxyz, grdxyz)
           call vecxyz2zonvecrtp_sub(grdxyz, grdptr(:,:,ir))
         end do
         

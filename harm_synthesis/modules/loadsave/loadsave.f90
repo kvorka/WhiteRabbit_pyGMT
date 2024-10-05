@@ -1,6 +1,5 @@
 module loadsave
   use math
-  use constants
   implicit none
 
   interface

@@ -21,7 +21,7 @@ submodule (ocean) temp
         do ir = 1, n_out
           !temp(1,ir) = czero
           
-          call harmsy_sub(jmax, 1, temp(:,ir), grdxyz)
+          call harmsy1_sub(jmax, temp(:,ir), grdxyz)
           grdt(:,ir) = sum( grdxyz, dim=1 ) / (2*nth)
         end do
         

@@ -1,6 +1,5 @@
 module tgt_cylinder
-  use Math
-  use Constants
+  use math
   implicit none
   
   interface

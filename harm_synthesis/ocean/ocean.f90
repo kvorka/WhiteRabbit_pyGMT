@@ -1,9 +1,8 @@
 module ocean
   use math
-  use constants
-  use harmsy
-  use vector_analysis
   use loadsave
+  use harmsy
+  use sphvectors
   implicit none; public
   
   interface
