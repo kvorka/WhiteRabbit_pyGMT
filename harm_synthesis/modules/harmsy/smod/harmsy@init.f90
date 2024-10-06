@@ -1,20 +1,20 @@
 submodule (harmsy) init
   implicit none; contains
   
-  module pure subroutine init_lege_coeffs_sub(jmax, cmm, amj, bmj)
-    integer,        intent(in)  :: jmax
-    real(kind=dbl), intent(out) :: amj(*), bmj(*), cmm(*)
-    integer                     :: im, ij, imj
+  module subroutine init_harmsy_sub(jmax, ntheta)
+    integer, intent(in)  :: jmax, ntheta
+    integer              :: im, ij, imj, ip
     
-    !im = 0
-      do ij = 1, jmax
-        amj(ij+1) = sqrt( (2*ij-1) * (2*ij+one)                         / (            (ij-im) * (ij+im) ) )
-        bmj(ij+1) = sqrt(            (2*ij+one) * (ij-im-1) * (ij+im-1) / ( (2*ij-3) * (ij-im) * (ij+im) ) )
-      end do
+    allocate( expphi(2*nth),            &
+            & cmm(jmax),                &
+            & amj((jmax+1)*(jmax+2)/2), &
+            & bmj((jmax+1)*(jmax+2)/2)  )
     
-    do im = 1, jmax
+    do concurrent ( im = 1:jmax )
       cmm(im) = -sqrt( (2*im+one) / (2*im) )
-      
+    end do
+    
+    do im = 0, jmax
       do ij = im+1, jmax
         imj = im*(jmax+1)-im*(im+1)/2+ij+1
         
@@ -23,17 +23,16 @@ submodule (harmsy) init
       end do
     end do
     
-  end subroutine init_lege_coeffs_sub
-  
-  module pure subroutine init_fft_coeffs_sub(ntheta, expphi)
-    integer,           intent(in)  :: ntheta
-    complex(kind=dbl), intent(out) :: expphi(*)
-    integer                        :: ip
-    
     do concurrent ( ip = 1:2*ntheta )
       expphi(ip) = exp( cunit * (ip-1) * pi / ntheta )
     end do
     
-  end subroutine init_fft_coeffs_sub
+  end subroutine init_harmsy_sub
+  
+  module subroutine deallocate_harmsy_sub()
+    
+    deallocate( amj, bmj, cmm, expphi )
+    
+  end subroutine deallocate_harmsy_sub
   
 end submodule init

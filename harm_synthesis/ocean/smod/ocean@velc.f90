@@ -15,7 +15,8 @@ submodule (ocean) velc
     allocate( r(n_out), velc(jmv,n_out), grdptr(3,0:nth,n_out) )
       
       call load_spectra_3d_sub(filein, jmv, nd, r, velc)
-      
+      call init_harmsy_sub(jmax+1,nth)
+
       !$omp parallel private (ijml,spcxyz,grdxyz)
       allocate( spcxyz(3,jms1), grdxyz(3,2*nth,0:nth) )
         
@@ -27,12 +28,14 @@ submodule (ocean) velc
           end do
           
           call vec2scals_sub(jmax, velc(:,ir), spcxyz)
-          call harmsy3_sub(jmax+1, spcxyz, grdxyz)
+          call harmsy_sub(jmax+1, 3, spcxyz, grdxyz)
           call vecxyz2zonvecrtp_sub(grdxyz, grdptr(:,:,ir))
         end do
         
       deallocate(spcxyz, grdxyz)
       !$omp end parallel
+      
+      call deallocate_harmsy_sub()
       
       call save_data_3d_sub( identifier//'-radvelc.range', identifier//'-vrad.dat', r, grdptr(1,:,:), 'n' )
       call save_data_3d_sub( identifier//'-thtvelc.range', identifier//'-vtht.dat', r, grdptr(2,:,:), 'n' )

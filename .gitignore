@@ -15,3 +15,7 @@ __pycache__/
 *.pdf
 *.ps
 *.xmgr
+*.spec
+
+# compilation files
+error

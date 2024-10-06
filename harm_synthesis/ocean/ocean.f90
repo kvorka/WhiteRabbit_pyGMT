@@ -3,6 +3,7 @@ module ocean
   use loadsave
   use harmsy
   use sphvectors
+  use omp_lib
   implicit none; public
   
   interface

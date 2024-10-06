@@ -16,7 +16,11 @@ module ice
     allocate( spectra(jms), data_deform(2*nth,0:nth) )
       
       call load_spectra_2d_sub(filein, jms, spectra)
+      
+      call init_harmsy_sub(jmax, nth)
       call harmsy_sub(jmax, 1, spectra, data_deform)
+      call deallocate_harmsy_sub()
+      
       call save_data_2d_sub(identifier//'.range', identifier//'.dat', data_deform, 'n')
       
     deallocate( spectra, data_deform )

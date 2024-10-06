@@ -5,7 +5,7 @@ submodule (ocean) flux
     character(len=*),  intent(in)  :: filein, identifier
     integer,           intent(in)  :: jmax
     integer                        :: ij, ijm, jms
-    real(kind=dbl)                 :: fac
+    real(kind=dbl)                 :: fac, start, end
     real(kind=dbl),    allocatable :: data_flux(:,:)
     complex(kind=dbl), allocatable :: spectra(:)
     
@@ -28,7 +28,12 @@ submodule (ocean) flux
           spectra(ijm+1:ijm+ij) = czero
       end do
       
-      call harmsy1_sub(jmax, spectra, data_flux)
+      call init_harmsy_sub(jmax, nth)
+      start = omp_get_wtime()
+      call harmsy_sub(jmax, 1, spectra, data_flux)
+      end = omp_get_wtime()
+      write(*,*) end-start
+      call deallocate_harmsy_sub()
       
       call save_data_1d_sub(identifier//'-flux-1d.dat', data_flux, 's')
       call save_data_2d_sub(identifier//'-flux.range', identifier//'-flux.dat', data_flux, 'n')

@@ -2,7 +2,7 @@
 ###########################################################################################
 ####                              COMPILER SET UP                                      ####
 ###########################################################################################
-compile="gfortran-12 -Ofast -march=native -flto=auto -fwhole-program -fopenmp"
+compile="gfortran-13 -Ofast -march=native -flto=auto -fwhole-program -fopenmp"
 
 ###########################################################################################
 ####                            COMPILATION OF THE BASELINE                            ####
@@ -28,9 +28,9 @@ wait
 
 $compile -c harm_synthesis/modules/harmsy/harmsy.f90
   $compile -c harm_synthesis/modules/harmsy/smod/harmsy@init.f90 &
-  $compile -c harm_synthesis/modules/harmsy/smod/harmsy@harmsy1.f90 &
-  $compile -c harm_synthesis/modules/harmsy/smod/harmsy@harmsy3.f90 &
-  $compile -c harm_synthesis/modules/harmsy/smod/harmsy@harmsy4.f90 &
+  $compile -c harm_synthesis/modules/harmsy/smod/harmsy@legep.f90 &
+  $compile -c harm_synthesis/modules/harmsy/smod/harmsy@fourtrans.f90 &
+  $compile -c harm_synthesis/modules/harmsy/smod/harmsy@harmsy.f90 &
 wait
 
 $compile -c harm_synthesis/ocean/ocean.f90
@@ -49,5 +49,5 @@ $compile harm_synthesis/output.f90 *.o -o code_out
 ###########################################################################################
 ####                                 RUN AND CLEAN                                     ####
 ###########################################################################################
-#./code_out
+./code_out
 rm *.o *.smod *.mod code_out
