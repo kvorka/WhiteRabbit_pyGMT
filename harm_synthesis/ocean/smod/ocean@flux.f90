@@ -22,11 +22,13 @@ submodule (ocean) flux
         fac = one
       end if
       
-      do ij = 1, jmax
-        ijm = ij*(ij+1)/2+1
-          spectra(ijm)          = spectra(ijm) * fac
-          spectra(ijm+1:ijm+ij) = czero
-      end do
+      spectra = spectra * fac
+      
+      !do ij = 1, jmax
+      !  ijm = ij*(ij+1)/2+1
+      !    spectra(ijm)          = spectra(ijm) * fac
+      !    spectra(ijm+1:ijm+ij) = czero
+      !end do
       
       call init_harmsy_sub(jmax, nth)
       start = omp_get_wtime()

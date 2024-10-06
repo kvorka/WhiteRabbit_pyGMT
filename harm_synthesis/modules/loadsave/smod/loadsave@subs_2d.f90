@@ -31,9 +31,9 @@ submodule (loadsave) subs_2D
     integer                      :: iph, ith
     
     open(unit=8, file=file_data, status='new', action='write')
-      do ith = 0, 180
-        do iph = 1, 360
-          write(8,*) iph, ith-90, grddata(iph,ith)
+      do ith = 0, nth
+        do iph = 1, 2*nth
+          write(8,*) iph*180._dbl/nth, ith*180._dbl/nth-90, grddata(iph,ith)
         end do
       end do
     close(8)

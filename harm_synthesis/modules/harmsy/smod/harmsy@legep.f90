@@ -52,6 +52,80 @@ submodule (harmsy) legep
     
   end subroutine pmj_sum_sub
   
+  module pure subroutine pmj2_set0_sub(it, ctheta, stheta)
+    integer,        intent(in)  :: it
+    real(kind=dbl), intent(out) :: ctheta(2)
+    real(kind=dbl), intent(out) :: stheta(2)
+    integer                     :: i1
+    
+    do concurrent ( i1 = 1:2 )
+      ctheta(i1) = cos((it+i1-1)*pi/nth)
+      stheta(i1) = sin((it+i1-1)*pi/nth)
+    end do
+    
+  end subroutine pmj2_set0_sub
+  
+  module pure subroutine pmj2_set_sub(im, stheta, p0j, pmj, pmj1, pmj2)
+    integer,        intent(in)    :: im
+    real(kind=dbl), intent(in)    :: stheta(2)
+    real(kind=dbl), intent(inout) :: p0j(2), pmj(2), pmj1(2), pmj2(2)
+    integer                       :: i1
+    
+    if ( im > 0 ) then
+      do concurrent ( i1 = 1:2 )
+        p0j(i1) = p0j(i1) * cmm(im) * stheta(i1)
+      end do
+    else
+      do concurrent ( i1 = 1:2 )
+        p0j(i1) = 1 / sq4pi
+      end do
+    end if
+    
+    do concurrent ( i1 = 1:2 )
+      pmj2(i1) = zero
+      pmj1(i1) = zero
+      pmj(i1)  = p0j(i1)
+    end do
+    
+  end subroutine pmj2_set_sub
+  
+  module pure subroutine pmj2_recursion_sub(imj, ctheta, pmj, pmj1, pmj2)
+    integer,        intent(in)    :: imj
+    real(kind=dbl), intent(in)    :: ctheta(2)
+    real(kind=dbl), intent(inout) :: pmj(2), pmj1(2), pmj2(2)
+    integer                       :: i1
+    
+    do concurrent ( i1 = 1:2 )
+      pmj2(i1) = pmj1(i1)
+      pmj1(i1) = pmj(i1)
+      pmj(i1)  = amj(imj) * ctheta(i1) * pmj1(i1) - bmj(imj) * pmj2(i1)
+    end do
+    
+  end subroutine pmj2_recursion_sub
+  
+  module pure subroutine pmj2_sum_sub(n, pmj, sumLege, spectra)
+    integer,           intent(in)    :: n
+    real(kind=dbl),    intent(in)    :: pmj(2)
+    complex(kind=dbl), intent(in)    :: spectra(n)
+    complex(kind=dbl), intent(inout) :: sumLege(2,n)
+    integer                          :: i1, in
+    
+    do concurrent ( in = 1:n, i1 = 1:2 )
+      sumLege(i1,in) = sumLege(i1,in) + spectra(in) * pmj(i1)
+    end do
+    
+  end subroutine pmj2_sum_sub
+  
+  module pure subroutine pmj2_transpose_sub(n, sumL1, sumL2, sumLege1, sumLege2)
+    integer,           intent(in)  :: n
+    complex(kind=dbl), intent(in)  :: sumL1(2,n), sumL2(2,n)
+    complex(kind=dbl), intent(out) :: sumLege1(n,2), sumLege2(n,2)
+    
+    sumLege1 = transpose( sumL1 + sumL2 )
+    sumLege2 = transpose( sumL1 - sumL2 )
+    
+  end subroutine pmj2_transpose_sub
+  
   module pure subroutine pmj4_set0_sub(it, ctheta, stheta)
     integer,        intent(in)  :: it
     real(kind=dbl), intent(out) :: ctheta(4)
@@ -116,12 +190,13 @@ submodule (harmsy) legep
     
   end subroutine pmj4_sum_sub
   
-  module pure subroutine pmj4_transpose_sub(n, sumLege1, sumLege)
+  module pure subroutine pmj4_transpose_sub(n, sumL1, sumL2, sumLege1, sumLege2)
     integer,           intent(in)  :: n
-    complex(kind=dbl), intent(in)  :: sumLege1(4,n)
-    complex(kind=dbl), intent(out) :: sumLege(n,4)
+    complex(kind=dbl), intent(in)  :: sumL1(4,n), sumL2(4,n)
+    complex(kind=dbl), intent(out) :: sumLege1(n,4), sumLege2(n,4)
     
-    sumLege = transpose( sumLege1 )
+    sumLege1 = transpose( sumL1 + sumL2 )
+    sumLege2 = transpose( sumL1 - sumL2 )
     
   end subroutine pmj4_transpose_sub
   
