@@ -73,18 +73,24 @@ submodule (harmsy) harmsy
         call pmj4_transpose_sub( n, sumL1(1), sumL2(1), sumLege1(1+4*n*im), sumLege2(1+4*n*im) )
       end do
       
+      do concurrent ( in = 4*n+1:4*n*(jmax+1) )
+        sumLege1(in) = 2 * sumLege1(in)
+        sumLege2(in) = 2 * sumLege2(in)
+      end do
+      
       im = 0
-        facexp = cone / 2
+        do concurrent ( ip = 1:2*nth )
+          facexp(ip) = cone
+        end do
+        
         call fourtrans4_sum_sub( n, facexp(1), sumLege1(1), gridvals(1,1,it),      &
                                &               sumLege2(1), gridvals(1,1,nth-it-3) )
       
-      im = 1
-        facexp = expphi
-        call fourtrans4_sum_sub( n, facexp(1), sumLege1(1+4*n), gridvals(1,1,it),      &
-                               &               sumLege2(1+4*n), gridvals(1,1,nth-it-3) )
+      do im = 1, jmax
+        do concurrent ( ip = 1:2*nth )
+          facexp(ip) = facexp(ip) * expphi(ip)
+        end do
         
-      do im = 2, jmax
-        facexp = facexp * expphi
         call fourtrans4_sum_sub( n, facexp(1), sumLege1(1+4*n*im), gridvals(1,1,it),      &
                                &               sumLege2(1+4*n*im), gridvals(1,1,nth-it-3) )
       end do
@@ -121,18 +127,24 @@ submodule (harmsy) harmsy
         call pmj2_transpose_sub( n, sumL1(1), sumL2(1), sumLege1(1+2*n*im), sumLege2(1+2*n*im) )
       end do
       
+      do concurrent ( in = 2*n+1:2*n*(jmax+1) )
+        sumLege1(in) = 2 * sumLege1(in)
+        sumLege2(in) = 2 * sumLege2(in)
+      end do
+      
       im = 0
-        facexp = cone / 2
+        do concurrent ( ip = 1:2*nth )
+          facexp(ip) = cone
+        end do
+        
         call fourtrans2_sum_sub( n, facexp(1), sumLege1(1), gridvals(1,1,it),      &
                                &               sumLege2(1), gridvals(1,1,nth-it-1) )
       
-      im = 1
-        facexp = expphi
-        call fourtrans2_sum_sub( n, facexp(1), sumLege1(1+2*n), gridvals(1,1,it),      &
-                               &               sumLege2(1+2*n), gridvals(1,1,nth-it-1) )
+      do im = 1, jmax
+        do concurrent ( ip = 1:2*nth )
+          facexp(ip) = facexp(ip) * expphi(ip)
+        end do
         
-      do im = 2, jmax
-        facexp = facexp * expphi
         call fourtrans2_sum_sub( n, facexp(1), sumLege1(1+2*n*im), gridvals(1,1,it),      &
                                &               sumLege2(1+2*n*im), gridvals(1,1,nth-it-1) )
       end do
@@ -161,16 +173,22 @@ submodule (harmsy) harmsy
         end do
       end do
       
+      do concurrent ( in = n+1:n*(jmax+1) )
+        sumLege1(in) = 2 * sumLege1(in)
+      end do
+      
       im = 0
-        facexp = cone / 2
+        do concurrent ( ip = 1:2*nth )
+          facexp(ip) = cone
+        end do
+        
         call fourtrans_sum_sub( n, facexp(1), sumLege1(1), gridvals(1,1,it) )
       
-      im = 1
-        facexp = expphi
-        call fourtrans_sum_sub( n, facexp(1), sumLege1(1+n), gridvals(1,1,it) )
+      do im = 1, jmax
+        do concurrent ( ip = 1:2*nth )
+          facexp(ip) = facexp(ip) * expphi(ip)
+        end do
         
-      do im = 2, jmax
-        facexp = facexp * expphi
         call fourtrans_sum_sub( n, facexp(1), sumLege1(1+n*im), gridvals(1,1,it) )
       end do
     

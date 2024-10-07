@@ -9,7 +9,7 @@ submodule (harmsy) fourtrans
     integer                          :: in, ip
     
     do concurrent ( ip = 1:2*nth, in = 1:n )
-      grd1(in,ip) = grd1(in,ip) + 2 * real( expmul(ip) * sumLege1(in) , kind=dbl )
+      grd1(in,ip) = grd1(in,ip) + expmul(ip)%re * sumLege1(in)%re - expmul(ip)%im * sumLege1(in)%im
     end do
     
   end subroutine fourtrans_sum_sub
@@ -22,8 +22,8 @@ submodule (harmsy) fourtrans
     integer                          :: i1, in, ip
     
     do concurrent ( i1 = 1:2, ip = 1:2*nth, in = 1:n )
-      grd1(in,ip,  i1) = grd1(in,ip,  i1) + 2 * real( expmul(ip) * sumLege1(in,i1) , kind=dbl )
-      grd2(in,ip,3-i1) = grd2(in,ip,3-i1) + 2 * real( expmul(ip) * sumLege2(in,i1) , kind=dbl )
+      grd1(in,ip,  i1) = grd1(in,ip,  i1) + expmul(ip)%re * sumLege1(in,i1)%re - expmul(ip)%im * sumLege1(in,i1)%im
+      grd2(in,ip,3-i1) = grd2(in,ip,3-i1) + expmul(ip)%re * sumLege2(in,i1)%re - expmul(ip)%im * sumLege2(in,i1)%im
     end do
     
   end subroutine fourtrans2_sum_sub
@@ -36,8 +36,8 @@ submodule (harmsy) fourtrans
     integer                          :: i1, in, ip
     
     do concurrent ( i1 = 1:4, ip = 1:2*nth, in = 1:n )
-      grd1(in,ip,  i1) = grd1(in,ip,  i1) + 2 * real( expmul(ip) * sumLege1(in,i1) , kind=dbl )
-      grd2(in,ip,5-i1) = grd2(in,ip,5-i1) + 2 * real( expmul(ip) * sumLege2(in,i1) , kind=dbl )
+      grd1(in,ip,  i1) = grd1(in,ip,  i1) + expmul(ip)%re * sumLege1(in,i1)%re - expmul(ip)%im * sumLege1(in,i1)%im
+      grd2(in,ip,5-i1) = grd2(in,ip,5-i1) + expmul(ip)%re * sumLege2(in,i1)%re - expmul(ip)%im * sumLege2(in,i1)%im
     end do
     
   end subroutine fourtrans4_sum_sub
