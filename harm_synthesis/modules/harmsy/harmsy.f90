@@ -119,23 +119,23 @@ module harmsy
     
     module pure subroutine fourtrans_sum_sub(n, expmul, sumLege1, grd1)
       integer,           intent(in)    :: n
-      complex(kind=dbl), intent(in)    :: expmul
+      complex(kind=dbl), intent(in)    :: expmul(2*nth)
       complex(kind=dbl), intent(in)    :: sumLege1(n)
-      real(kind=dbl),    intent(inout) :: grd1(n)
+      real(kind=dbl),    intent(inout) :: grd1(n,2*nth)
     end subroutine fourtrans_sum_sub
     
     module pure subroutine fourtrans2_sum_sub(n, expmul, sumLege1, grd1, sumLege2, grd2)
       integer,           intent(in)    :: n
-      complex(kind=dbl), intent(in)    :: expmul
+      complex(kind=dbl), intent(in)    :: expmul(2*nth)
       complex(kind=dbl), intent(in)    :: sumLege1(n,2), sumLege2(n,2)
-      real(kind=dbl),    intent(inout) :: grd1(n,*), grd2(n,*)
+      real(kind=dbl),    intent(inout) :: grd1(n,2*nth,2), grd2(n,2*nth,2)
     end subroutine fourtrans2_sum_sub
     
     module pure subroutine fourtrans4_sum_sub(n, expmul, sumLege1, grd1, sumLege2, grd2)
       integer,           intent(in)    :: n
-      complex(kind=dbl), intent(in)    :: expmul
+      complex(kind=dbl), intent(in)    :: expmul(2*nth)
       complex(kind=dbl), intent(in)    :: sumLege1(n,4), sumLege2(n,4)
-      real(kind=dbl),    intent(inout) :: grd1(n,*), grd2(n,*)
+      real(kind=dbl),    intent(inout) :: grd1(n,2*nth,4), grd2(n,2*nth,4)
     end subroutine fourtrans4_sum_sub
   end interface
   

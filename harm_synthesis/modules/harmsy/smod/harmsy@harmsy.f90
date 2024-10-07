@@ -7,8 +7,7 @@ submodule (harmsy) harmsy
     real(kind=dbl),    intent(out) :: gridvals(n,2*nth,0:nth)
     integer                        :: it, ip, ij, im, in, ijm, imj
     real(kind=dbl),    allocatable :: p0j(:), pmj(:), pmj1(:), pmj2(:), costheta(:), sintheta(:)
-    complex(kind=dbl)              :: expmul
-    complex(kind=dbl), allocatable :: sumLege1(:), sumLege2(:), sumL1(:), sumL2(:), spectramj(:,:)
+    complex(kind=dbl), allocatable :: sumLege1(:), sumLege2(:), sumL1(:), sumL2(:), facexp(:), spectramj(:,:)
     
     !!**************************************************************************************!!
     !!* Prepare output array.                                                              *!!
@@ -25,6 +24,7 @@ submodule (harmsy) harmsy
             & sumLege2(4*n*(jmax+1)), sumL2(4*n), &
             & p0j(4), pmj(4), pmj1(4), pmj2(4),   &
             & costheta(4), sintheta(4),           &
+            & facexp(2*nth),                      &
             & spectramj(n,jmax*(jmax+1)/2+jmax+1) )
     
     do im = 0, jmax
@@ -73,21 +73,20 @@ submodule (harmsy) harmsy
         call pmj4_transpose_sub( n, sumL1(1), sumL2(1), sumLege1(1+4*n*im), sumLege2(1+4*n*im) )
       end do
       
-      do ip = 1, 2*nth
-        im = 0
-          expmul = cone / 2
-          call fourtrans4_sum_sub( n, expmul, sumLege1(1), gridvals(1,ip,it),    &
-                                 &            sumLege2(1), gridvals(1,ip,nth-it) )
+      im = 0
+        facexp = cone / 2
+        call fourtrans4_sum_sub( n, facexp(1), sumLege1(1), gridvals(1,1,it),      &
+                               &               sumLege2(1), gridvals(1,1,nth-it-3) )
+      
+      im = 1
+        facexp = expphi
+        call fourtrans4_sum_sub( n, facexp(1), sumLege1(1+4*n), gridvals(1,1,it),      &
+                               &               sumLege2(1+4*n), gridvals(1,1,nth-it-3) )
         
-        im = 1
-          expmul = expphi(ip)
-          call fourtrans4_sum_sub( n, expmul, sumLege1(1+4*n), gridvals(1,ip,it),    &
-                                 &            sumLege2(1+4*n), gridvals(1,ip,nth-it) )
-        do im = 2, jmax
-          expmul = expmul * expphi(ip)
-          call fourtrans4_sum_sub( n, expmul, sumLege1(1+4*n*im), gridvals(1,ip,it),    &
-                                            & sumLege2(1+4*n*im), gridvals(1,ip,nth-it) )
-        end do
+      do im = 2, jmax
+        facexp = facexp * expphi
+        call fourtrans4_sum_sub( n, facexp(1), sumLege1(1+4*n*im), gridvals(1,1,it),      &
+                               &               sumLege2(1+4*n*im), gridvals(1,1,nth-it-3) )
       end do
     end do
     
@@ -122,21 +121,20 @@ submodule (harmsy) harmsy
         call pmj2_transpose_sub( n, sumL1(1), sumL2(1), sumLege1(1+2*n*im), sumLege2(1+2*n*im) )
       end do
       
-      do ip = 1, 2*nth
-        im = 0
-          expmul = cone / 2
-          call fourtrans2_sum_sub( n, expmul, sumLege1(1), gridvals(1,ip,it),    &
-                                 &            sumLege2(1), gridvals(1,ip,nth-it) )
+      im = 0
+        facexp = cone / 2
+        call fourtrans2_sum_sub( n, facexp(1), sumLege1(1), gridvals(1,1,it),      &
+                               &               sumLege2(1), gridvals(1,1,nth-it-1) )
+      
+      im = 1
+        facexp = expphi
+        call fourtrans2_sum_sub( n, facexp(1), sumLege1(1+2*n), gridvals(1,1,it),      &
+                               &               sumLege2(1+2*n), gridvals(1,1,nth-it-1) )
         
-        im = 1
-          expmul = expphi(ip)
-          call fourtrans2_sum_sub( n, expmul, sumLege1(1+2*n), gridvals(1,ip,it),    &
-                                 &            sumLege2(1+2*n), gridvals(1,ip,nth-it) )
-        do im = 2, jmax
-          expmul = expmul * expphi(ip)
-          call fourtrans2_sum_sub( n, expmul, sumLege1(1+2*n*im), gridvals(1,ip,it),    &
-                                            & sumLege2(1+2*n*im), gridvals(1,ip,nth-it) )
-        end do
+      do im = 2, jmax
+        facexp = facexp * expphi
+        call fourtrans2_sum_sub( n, facexp(1), sumLege1(1+2*n*im), gridvals(1,1,it),      &
+                               &               sumLege2(1+2*n*im), gridvals(1,1,nth-it-1) )
       end do
     end do
     
@@ -163,26 +161,24 @@ submodule (harmsy) harmsy
         end do
       end do
       
-      do ip = 1, 2*nth
-        im = 0
-          expmul = cone / 2
-          call fourtrans_sum_sub( n, expmul, sumLege1(1), gridvals(1,ip,it) )
+      im = 0
+        facexp = cone / 2
+        call fourtrans_sum_sub( n, facexp(1), sumLege1(1), gridvals(1,1,it) )
+      
+      im = 1
+        facexp = expphi
+        call fourtrans_sum_sub( n, facexp(1), sumLege1(1+n), gridvals(1,1,it) )
         
-        im = 1
-          expmul = expphi(ip)
-          call fourtrans_sum_sub( n, expmul, sumLege1(1+n), gridvals(1,ip,it) )
-          
-        do im = 2, jmax
-          expmul = expmul * expphi(ip)
-          call fourtrans_sum_sub( n, expmul, sumLege1(1+n*im), gridvals(1,ip,it) )
-        end do
+      do im = 2, jmax
+        facexp = facexp * expphi
+        call fourtrans_sum_sub( n, facexp(1), sumLege1(1+n*im), gridvals(1,1,it) )
       end do
     
     !!**************************************************************************************!!
     !!* Cleaning after the computation.                                                    *!!
     !!**************************************************************************************!!
     deallocate( sumLege1, sumLege2, sumL1, sumL2, p0j, pmj, pmj1, pmj2, costheta, sintheta, &
-              & spectramj )
+              & facexp, spectramj )
     
   end subroutine harmsy_sub
   
