@@ -1,11 +1,9 @@
 submodule (ocean) flux
   implicit none; contains
 
-  module subroutine harm_synthesis_flux_sub(filein, jmax, identifier)
-    character(len=*),  intent(in)  :: filein, identifier
-    integer,           intent(in)  :: jmax
+  module procedure harm_synthesis_flux_sub
     integer                        :: ij, ijm, jms
-    real(kind=dbl)                 :: fac, start, end
+    real(kind=dbl)                 :: fac
     real(kind=dbl),    allocatable :: data_flux(:,:)
     complex(kind=dbl), allocatable :: spectra(:)
     
@@ -31,17 +29,14 @@ submodule (ocean) flux
       !end do
       
       call init_harmsy_sub(jmax, nth)
-      start = omp_get_wtime()
       call harmsy_sub(jmax, 1, spectra, data_flux)
-      end = omp_get_wtime()
-      write(*,*) end-start
       call deallocate_harmsy_sub()
       
-      call save_data_1d_sub(identifier//'-flux-1d.dat', data_flux, 's')
+      !call save_data_1d_sub(identifier//'-flux-1d.dat', data_flux, 's')
       call save_data_2d_sub(identifier//'-flux.range', identifier//'-flux.dat', data_flux, 'n')
       
     deallocate( spectra, data_flux )
     
-  end subroutine harm_synthesis_flux_sub
+  end procedure harm_synthesis_flux_sub
   
 end submodule flux

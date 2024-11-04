@@ -1,12 +1,9 @@
 submodule (sphvectors) vec2scals
   implicit none; contains
   
-  module pure subroutine vec2scals_sub(jmax, vec, xyz)
-    integer,           intent(in)  :: jmax
-    complex(kind=dbl), intent(in)  :: vec(*)
-    complex(kind=dbl), intent(out) :: xyz(3,*)
-    integer                        :: s, j, m, l, jm, jml
-    complex(kind=dbl)              :: sum1, sum2, sum3
+  module procedure vec2scals_sub
+    integer           :: s, j, m, l, jm, jml
+    complex(kind=dbl) :: sum1, sum2, sum3
     
     m = 0
       do j = m, jmax+1

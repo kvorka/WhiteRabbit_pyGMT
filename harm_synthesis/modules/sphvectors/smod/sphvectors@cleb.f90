@@ -1,9 +1,7 @@
 submodule (sphvectors) cleb
   implicit none; contains
   
-  module pure function cleb1_fn(j1, m1, j2, m2, j, m) result(cleb1)
-    integer,       intent(in) :: j1, m1, j2, m2, j, m
-    real(kind=dbl)            :: cleb1
+  module procedure cleb1_fn
     
     if ((j2 /= 1) .or. (abs(j1-j) > 1) .or. ((j1+j) == 0) .or. (abs(m2) > 1) .or. abs(m1) > j1) then
       cleb1 = zero
@@ -24,6 +22,6 @@ submodule (sphvectors) cleb
       if (j1 == j+1) cleb1 = +sqrt((j-m+1._dbl)*(j-m+2._dbl)/((  j+1._dbl)*(2*j+3._dbl))/2)
     end if
     
-  end function cleb1_fn
+  end procedure cleb1_fn
   
 end submodule cleb

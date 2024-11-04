@@ -1,10 +1,7 @@
 submodule (harmsy) harmsy
   implicit none; contains
   
-  module pure subroutine harmsy_sub(jmax, n, spectra, gridvals)
-    integer,           intent(in)  :: jmax, n
-    complex(kind=dbl), intent(in)  :: spectra(n,*)
-    real(kind=dbl),    intent(out) :: gridvals(n,2*nth,0:nth)
+  module procedure harmsy_sub
     integer                        :: it, ip, ij, im, in, ijm, imj
     real(kind=dbl),    allocatable :: p0j(:), pmj(:), pmj1(:), pmj2(:), costheta(:), sintheta(:)
     complex(kind=dbl), allocatable :: sumLege1(:), sumLege2(:), sumL1(:), sumL2(:), facexp(:), spectramj(:,:)

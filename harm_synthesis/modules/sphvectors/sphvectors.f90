@@ -3,7 +3,7 @@ module sphvectors
   implicit none
   
   public :: vec2scals_sub
-  public :: vecxyz2zonvecrtp_sub
+  public :: vecxyz2vecrtp_sub, vecxyz2zonvecrtp_sub
   
   private :: cleb1_fn
   
@@ -18,6 +18,11 @@ module sphvectors
       real(kind=dbl), intent(in)  :: vxyz(3,2*nth,0:nth)
       real(kind=dbl), intent(out) :: vrtp(3,0:nth)
     end subroutine vecxyz2zonvecrtp_sub
+    
+    module pure subroutine vecxyz2vecrtp_sub(vxyz, vrtp)
+      real(kind=dbl), intent(in)  :: vxyz(3,2*nth,0:nth)
+      real(kind=dbl), intent(out) :: vrtp(3,2*nth,0:nth)
+    end subroutine vecxyz2vecrtp_sub
     
     module pure function cleb1_fn(j1, m1, j2, m2, j, m) result(cleb1)
       integer,       intent(in) :: j1, m1, j2, m2, j, m

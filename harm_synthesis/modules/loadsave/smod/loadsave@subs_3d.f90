@@ -1,11 +1,7 @@
 submodule (loadsave) subs_3D
   implicit none; contains
   
-  module subroutine load_spectra_3d_sub(filein, dimjml, dimr, r, spectra)
-    character(len=*),  intent(in)  :: filein
-    integer,           intent(in)  :: dimjml, dimr
-    real(kind=dbl),    intent(out) :: r(n_out)
-    complex(kind=dbl), intent(out) :: spectra(dimjml,n_out)
+  module procedure load_spectra_3d_sub
     integer                        :: ir, iir
     real(kind=dbl),    allocatable :: r1(:)
     complex(kind=dbl), allocatable :: spectra1(:,:)
@@ -34,14 +30,11 @@ submodule (loadsave) subs_3D
     
     deallocate( r1, spectra1 )
     
-  end subroutine load_spectra_3d_sub
+  end procedure load_spectra_3d_sub
   
-  module subroutine save_data_3d_sub(file_range, file_data, r, grddata, eqsim)
-    character(len=*), intent(in) :: file_range, file_data
-    real(kind=dbl),   intent(in) :: r(n_out), grddata(0:nth,n_out)
-    character,        intent(in) :: eqsim
-    integer                      :: ith, ir
-    real(kind=dbl)               :: dhelp, dmax, dmin, r_dim
+  module procedure save_data_3d_sub
+    integer        :: ith, ir
+    real(kind=dbl) :: dhelp, dmax, dmin, r_dim
     
     dmax = zero
     dmin = huge(zero)
@@ -62,7 +55,7 @@ submodule (loadsave) subs_3D
           dmax = max(dmax, dhelp)
           dmin = min(dmin, dhelp)
           
-          write(8,'(3F15.7)') r_dim, ith*180._dbl/nth, dhelp
+          write(8,'(3F15.7)') r_dim, 90-ith*180._dbl/nth, dhelp
         end do
       end do
     close(8)
@@ -72,6 +65,6 @@ submodule (loadsave) subs_3D
       write(8,*) dmax
     close(8)
     
-  end subroutine save_data_3d_sub
+  end procedure save_data_3d_sub
   
 end submodule subs_3D

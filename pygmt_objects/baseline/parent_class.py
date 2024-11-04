@@ -33,14 +33,14 @@ class cparent:
 
     bar.colorbar(cmap=self.cMap, frame="xg0", position="j-1.1c+w12c/1.5c+v", region=[0,1,0,1])
     bar.text(text=b1,   x=1.24, y=10.5, font="60p,Helvetica", no_clip=True)
-    bar.text(text=unit, x=1.43, y=11.0, font="60p,Helvetica", no_clip=True)
+    bar.text(text=unit, x=1.47, y=10.9, font="60p,Helvetica", no_clip=True)
     bar.text(text=b2,   x=1.24, y=11.5, font="60p,Helvetica", no_clip=True)
 
     bar.savefig(outfile)
   
   def data_to_pygmtfig(self, pygmtfig, frame, cT, data):
     pygmt.makecpt( cmap = self.cMap, 
-                   series = [-cT,cT], 
+                   series = [-cT,cT],
                    background = True )
     
     region = [ data[:,0].min(), data[:,0].max() ,

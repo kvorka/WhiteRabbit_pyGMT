@@ -1,9 +1,7 @@
 submodule (ocean) temp
   implicit none; contains
   
-  module subroutine harm_synthesis_temp_sub(filein, nd, jmax, identifier)
-    character(len=*),  intent(in)  :: filein, identifier
-    integer,           intent(in)  :: nd, jmax
+  module procedure harm_synthesis_temp_sub
     integer                        :: ir, jms
     real(kind=dbl),    allocatable :: r(:), grdt(:,:), grdxyz(:,:)
     complex(kind=dbl), allocatable :: temp(:,:)
@@ -34,6 +32,6 @@ submodule (ocean) temp
       
     deallocate( r, temp, grdt )
     
-  end subroutine harm_synthesis_temp_sub
+  end procedure harm_synthesis_temp_sub
   
 end submodule temp

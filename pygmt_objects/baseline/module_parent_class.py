@@ -19,7 +19,7 @@ def get_step(arr):
   
   for x in arr[1:]:
     if (x != x0):
-      step = x-x0
+      step = abs(x-x0)
       break
   
   return step

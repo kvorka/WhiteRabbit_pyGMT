@@ -22,6 +22,12 @@ module ocean
       integer,          intent(in) :: nd, jmax
       real(kind=dbl),   intent(in) :: fac
     end subroutine harm_synthesis_velc_sub
+    
+    module subroutine harm_synthesis_surfvelc_sub(filein, nd, jmax, fac, identifier)
+      character(len=*),  intent(in)  :: filein, identifier
+      integer,           intent(in)  :: nd, jmax
+      real(kind=dbl),    intent(in)  :: fac
+    end subroutine harm_synthesis_surfvelc_sub
   end interface
   
 end module ocean

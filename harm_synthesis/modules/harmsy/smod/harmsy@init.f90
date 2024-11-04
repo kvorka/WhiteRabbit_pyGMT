@@ -1,9 +1,8 @@
 submodule (harmsy) init
   implicit none; contains
   
-  module subroutine init_harmsy_sub(jmax, ntheta)
-    integer, intent(in)  :: jmax, ntheta
-    integer              :: im, ij, imj, ip
+  module procedure init_harmsy_sub
+    integer :: im, ij, imj, ip
     
     allocate( expphi(2*nth),            &
             & cmm(jmax),                &
@@ -27,12 +26,12 @@ submodule (harmsy) init
       expphi(ip) = exp( cunit * (ip-1) * pi / ntheta )
     end do
     
-  end subroutine init_harmsy_sub
+  end procedure init_harmsy_sub
   
-  module subroutine deallocate_harmsy_sub()
+  module procedure deallocate_harmsy_sub()
     
     deallocate( amj, bmj, cmm, expphi )
     
-  end subroutine deallocate_harmsy_sub
+  end procedure deallocate_harmsy_sub
   
 end submodule init
