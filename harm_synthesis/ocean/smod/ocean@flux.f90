@@ -11,6 +11,7 @@ submodule (ocean) flux
     
     allocate( spectra(jms), data_flux(2*nth,0:nth) )
       
+      spectra = czero
       call load_spectra_2d_sub(filein, jms, spectra)
       
       if ( abs(spectra(1)%re) > zero ) then
@@ -21,7 +22,8 @@ submodule (ocean) flux
       end if
       
       spectra = spectra * fac
-      
+      !spectra(1) = sq4pi
+      !
       !do ij = 1, jmax
       !  ijm = ij*(ij+1)/2+1
       !    spectra(ijm)          = spectra(ijm) * fac

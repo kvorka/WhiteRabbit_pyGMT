@@ -12,18 +12,18 @@ from pygmt_objects.baseline.parent_class import *
 
 class csection(cparent):
   
-  def cross_section(self, inf, outf, cB, cT, xnt=None, ynt=None, tgt=None):
+  def cross_section(self, inf, outf, cB, cT, xnt=None, ynt=None, tgt=None, mark=None):
     fig = pygmt.Figure()
     
     if self.proj[0] == "X":
-      self.data_to_pygmtfig(fig, ["WSne",xnt,ynt], cT, get_data(fname=inf, rescale=cB))
+      self.data_to_pygmtfig(fig, ["WSne",xnt,ynt], cT, get_data(fname=inf, rescale=cB), False)
       
-      if tgt != None: fig.plot( data=numpy.genfromtxt(tgt), pen="3p,black,-")
-      #fig.text(text="0.5", x=0.5, y=-10.0, no_clip=True)
+      if tgt  != None: fig.plot( data=numpy.genfromtxt(tgt), pen="2p,black,-")
+      if mark != None: fig.text( text=mark, x=0.15, y=9.0, no_clip=True, font="28p,Times-Roman" )
       
     elif self.proj[0] == "P":
-      self.data_to_pygmtfig(fig, ["WSne"], cT, get_data(fname=inf, rescale=cB, revert=True))
+      self.data_to_pygmtfig(fig, ["WSne"], cT, get_data(fname=inf, rescale=cB, revert=True), False)
       
-      if tgt != None: fig.plot(data=numpy.genfromtxt(tgt), pen="3p,black,-")
+      if tgt != None: fig.plot(data=numpy.genfromtxt(tgt), pen="2p,black,-")
     
     fig.savefig(outf)

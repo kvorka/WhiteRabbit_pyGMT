@@ -20,7 +20,7 @@ submodule (tgt_cylinder) subs_3d
             r     = r1 / stheta
             r_dim = (r_out-r_in) * r + (r_in - r_ud_ocean * r_out) / (1-r_ud_ocean)
             
-            write(8,*) r_dim, 90-ith * (180._dbl / nth )
+            write(8,*) r_dim, 90._dbl - ith * (180._dbl / nth )
           end if
         end do
       end do

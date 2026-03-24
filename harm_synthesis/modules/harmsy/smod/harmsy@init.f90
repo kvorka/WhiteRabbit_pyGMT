@@ -28,7 +28,7 @@ submodule (harmsy) init
     
   end procedure init_harmsy_sub
   
-  module procedure deallocate_harmsy_sub()
+  module procedure deallocate_harmsy_sub
     
     deallocate( amj, bmj, cmm, expphi )
     

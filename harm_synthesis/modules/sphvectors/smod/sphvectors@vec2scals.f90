@@ -61,6 +61,6 @@ submodule (sphvectors) vec2scals
       end do
     end do
   
-  end subroutine vec2scals_sub
+  end procedure vec2scals_sub
   
 end submodule vec2scals

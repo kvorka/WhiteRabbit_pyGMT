@@ -17,11 +17,14 @@ module ice
       
       call load_spectra_2d_sub(filein, jms, spectra)
       
+      !spectra = spectra / ( spectra(1)%re / sq4pi )
+      
       call init_harmsy_sub(jmax, nth)
       call harmsy_sub(jmax, 1, spectra, data_deform)
       call deallocate_harmsy_sub()
       
       call save_data_2d_sub(identifier//'.range', identifier//'.dat', data_deform, 'n')
+      !call save_data_1d_sub(identifier//'.dat', data_deform, 'n')
       
     deallocate( spectra, data_deform )
     

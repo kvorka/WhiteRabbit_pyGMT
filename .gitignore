@@ -10,6 +10,7 @@ __pycache__/
 # datafiles
 *.dat
 *.range
+*.cpt
 
 # pdfs
 *.pdf

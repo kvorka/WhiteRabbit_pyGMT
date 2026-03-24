@@ -55,7 +55,7 @@ submodule (loadsave) subs_3D
           dmax = max(dmax, dhelp)
           dmin = min(dmin, dhelp)
           
-          write(8,'(3F15.7)') r_dim, 90-ith*180._dbl/nth, dhelp
+          write(8,'(3F15.7)') r_dim, ith*180._dbl/nth, dhelp
         end do
       end do
     close(8)

@@ -10,7 +10,7 @@ def get_data(fname, rescale=1, revert=False):
                            converters={ 2: lambda x: float(x) / rescale } )
   
   if revert: data[:,0], data[:,1] = data[:,1], data[:,0]
-  
+
   return data
 
 def get_step(arr):
@@ -24,8 +24,10 @@ def get_step(arr):
   
   return step
 
-def export_cmap_to_cpt(cpallete, cfile, **kwargs):
-  cmap = matplotlib.pyplot.get_cmap(cpallete, 255)
+def export_cmap_to_cpt(cpallete, cfile, cmin=None, cmax=None, **kwargs):
+  N = 255
+
+  cmap = matplotlib.pyplot.get_cmap(cpallete, N)
   
   b = numpy.array(kwargs.get("B", cmap(0.)))
   f = numpy.array(kwargs.get("F", cmap(1.)))
@@ -35,8 +37,12 @@ def export_cmap_to_cpt(cpallete, cfile, **kwargs):
   ext = (numpy.c_[b[:3],f[:3],na[:3]].T*255).astype(int)
   extstr = "B {:3d} {:3d} {:3d}\nF {:3d} {:3d} {:3d}\nN {:3d} {:3d} {:3d}"
   
-  cols = (cmap(numpy.linspace(0.,1.,255))[:,:3]*255).astype(int)
-  vals = numpy.linspace(-1,+1,255)
+  cols = (cmap(numpy.linspace(0.,1.,N))[:,:3]*255).astype(int)
+  
+  if cmin != None and cmax != None:
+    vals = numpy.linspace(cmin,cmax,N)
+  else:
+    vals = numpy.linspace(-1,+1,N)
   
   numpy.savetxt( cfile, 
                  numpy.c_[vals[:-1],cols[:-1],vals[1:],cols[1:]], 

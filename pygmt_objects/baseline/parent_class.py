@@ -7,24 +7,31 @@ from pygmt_objects.baseline.module_parent_class import *
 
 class cparent:
   
-  def __init__(self, proj, cpallete, cmap):
-    pygmt.config( FONT_ANNOT_PRIMARY = 23, 
+  def __init__(self, proj, cmap, cpallete=None):
+    pygmt.config( FONT_LABEL = "Times-Roman",
+                  FONT_ANNOT = "Times-Roman",
+                  FONT_ANNOT_PRIMARY = 23, 
                   MAP_ANNOT_OFFSET = "7p",
                   MAP_TICK_LENGTH_PRIMARY = 0.10, 
                   MAP_TICK_LENGTH_SECONDARY = 1.0 )
     
+    if cpallete != None:
+      export_cmap_to_cpt(cpallete, cmap)
+    
     self.proj = proj
     self.cMap = cmap
+  
+  def prep_cmap(self, cpallete, cmin, cmax):
     
-    export_cmap_to_cpt(cpallete, cmap)
+    export_cmap_to_cpt(cpallete, self.cMap, cmin, cmax)
   
   def hcolor_bar(self, b1=-1.0, b2=1.0, unit=None, outfile="bar.pdf"):
     bar = pygmt.Figure()
 
-    bar.colorbar(cmap=self.cMap, frame="xg0", position="j-1.1c+w12c/1.5c+h", region=[0,1,0,1])
-    bar.text(text=b1,   x=2.585, y=2.10, font="60p,Helvetica", no_clip=True)
-    bar.text(text=unit, x=3.000, y=2.10, font="60p,Helvetica", no_clip=True)
-    bar.text(text=b2,   x=3.397, y=2.10, font="60p,Helvetica", no_clip=True)
+    bar.colorbar(cmap=self.cMap, frame="xg0", position="j-1.1c+w-12c/1.5c+h", region=[0,1,0,1])
+    bar.text(text=b1,   x=2.585, y=2.10, font="60p,Times-Roman", no_clip=True)
+    bar.text(text=unit, x=3.000, y=2.10, font="60p,Times-Roman", no_clip=True)
+    bar.text(text=b2,   x=3.397, y=2.10, font="60p,Times-Roman", no_clip=True)
 
     bar.savefig(outfile)
   
@@ -32,16 +39,25 @@ class cparent:
     bar = pygmt.Figure()
 
     bar.colorbar(cmap=self.cMap, frame="xg0", position="j-1.1c+w12c/1.5c+v", region=[0,1,0,1])
-    bar.text(text=b1,   x=1.24, y=10.5, font="60p,Helvetica", no_clip=True)
-    bar.text(text=unit, x=1.47, y=10.9, font="60p,Helvetica", no_clip=True)
-    bar.text(text=b2,   x=1.24, y=11.5, font="60p,Helvetica", no_clip=True)
+    bar.text(text=b1,   x=1.24, y=10.5, font="60p,Times-Roman", no_clip=True)
+    bar.text(text=unit, x=1.47, y=10.95, font="60p,Times-Roman", no_clip=True)
+    bar.text(text=b2,   x=1.24, y=11.5, font="60p,Times-Roman", no_clip=True)
 
     bar.savefig(outfile)
   
-  def data_to_pygmtfig(self, pygmtfig, frame, cT, data):
-    pygmt.makecpt( cmap = self.cMap, 
-                   series = [-cT,cT],
-                   background = True )
+  def data_to_pygmtfig(self, pygmtfig, frame, cT, data, start_at_zero):
+    if cT != None:
+      if not start_at_zero:
+        pygmt.makecpt( cmap = self.cMap, 
+                       series = [-cT,cT],
+                       background = False )
+      else:
+        pygmt.makecpt( cmap = self.cMap, 
+                       series = [0,cT],
+                       background = False )
+    else:
+      pygmt.makecpt( cmap = self.cMap,
+                     background = True )
     
     region = [ data[:,0].min(), data[:,0].max() ,
                data[:,1].min(), data[:,1].max() ]

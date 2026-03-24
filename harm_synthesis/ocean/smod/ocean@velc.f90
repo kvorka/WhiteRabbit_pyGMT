@@ -2,7 +2,7 @@ submodule (ocean) velc
   implicit none; contains
   
   module procedure harm_synthesis_velc_sub
-    integer                        :: ir, ijml, jmv, jms1
+    integer                        :: ir, ijml, jmv, jms1, ij, im, il
     real(kind=dbl),    allocatable :: r(:), grdxyz(:,:,:), grdptr(:,:,:)
     complex(kind=dbl), allocatable :: spcxyz(:,:), velc(:,:)
     
@@ -12,6 +12,22 @@ submodule (ocean) velc
     allocate( r(n_out), velc(jmv,n_out), grdptr(3,0:nth,n_out) )
       
       call load_spectra_3d_sub(filein, jmv, nd, r, velc)
+      
+      do ir = 1, n_out
+        do ij = 0, jmax
+          !im = 0
+          !  do il = abs(ij-1), ij+1
+          !    velc(3*((ij*(ij+1))/2+im)+il-ij,ir) = czero
+          !  end do
+          
+          do im = 1, ij
+            do il = abs(ij-1), ij+1
+              velc(3*((ij*(ij+1))/2+im)+il-ij,ir) = czero
+            end do
+          end do
+        end do
+      end do
+      
       call init_harmsy_sub(jmax+1,nth)
 
       !$omp parallel private (ijml,spcxyz,grdxyz)
@@ -34,9 +50,9 @@ submodule (ocean) velc
       
       call deallocate_harmsy_sub()
       
-      call save_data_3d_sub( identifier//'-radvelc.range', identifier//'-vrad.dat', r, grdptr(1,:,:), 'n' )
+      call save_data_3d_sub( identifier//'-radvelc.range', identifier//'-vrad.dat', r, grdptr(1,:,:), 's' )
       call save_data_3d_sub( identifier//'-thtvelc.range', identifier//'-vtht.dat', r, grdptr(2,:,:), 'n' )
-      call save_data_3d_sub( identifier//'-phivelc.range', identifier//'-vphi.dat', r, grdptr(3,:,:), 'n' )
+      call save_data_3d_sub( identifier//'-phivelc.range', identifier//'-vphi.dat', r, grdptr(3,:,:), 's' )
       
     deallocate( r, velc, grdptr )
     
@@ -71,9 +87,9 @@ submodule (ocean) velc
       
       call deallocate_harmsy_sub()
       
-      call save_data_2d_sub( identifier//'-surf_radvelc.range', identifier//'-surf_vrad.dat', grdptr(1,:,:), 't' )
-      call save_data_2d_sub( identifier//'-surf_thtvelc.range', identifier//'-surf_vtht.dat', grdptr(2,:,:), 't' )
-      call save_data_2d_sub( identifier//'-surf_phivelc.range', identifier//'-surf_vphi.dat', grdptr(3,:,:), 't' )
+      call save_data_2d_sub( identifier//'-surf_radvelc.range', identifier//'-surf_vrad.dat', grdptr(1,:,:), 's' )
+      call save_data_2d_sub( identifier//'-surf_thtvelc.range', identifier//'-surf_vtht.dat', grdptr(2,:,:), 'a' )
+      call save_data_2d_sub( identifier//'-surf_phivelc.range', identifier//'-surf_vphi.dat', grdptr(3,:,:), 's' )
       
     deallocate( r, velc, grdptr )
     

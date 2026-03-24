@@ -11,10 +11,10 @@ from pygmt_objects.baseline.parent_class import *
 
 class csurface(cparent):
   
-  def surface_plot(self, inf, outf, cB, cT, tgtn=None, tgts=None):
+  def surface_plot(self, inf, outf, cB, cT=None, tgtn=None, tgts=None):
     fig = pygmt.Figure()
     
-    self.data_to_pygmtfig(fig, ["WSne"], cT, get_data(fname=inf, rescale=cB))
+    self.data_to_pygmtfig(fig, ["WSne"], cT, get_data(fname=inf, rescale=cB), start_at_zero=False)
     
     if tgtn != None: fig.plot(data = numpy.genfromtxt("tgt-n.dat"), pen="2p,-")
     if tgts != None: fig.plot(data = numpy.genfromtxt("tgt-s.dat"), pen="2p,-")

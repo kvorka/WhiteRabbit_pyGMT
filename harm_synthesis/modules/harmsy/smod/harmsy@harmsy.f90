@@ -195,6 +195,6 @@ submodule (harmsy) harmsy
     deallocate( sumLege1, sumLege2, sumL1, sumL2, p0j, pmj, pmj1, pmj2, costheta, sintheta, &
               & facexp, spectramj )
     
-  end subroutine harmsy_sub
+  end procedure harmsy_sub
   
 end submodule harmsy

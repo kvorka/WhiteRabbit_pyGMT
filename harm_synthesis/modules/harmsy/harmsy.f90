@@ -21,14 +21,14 @@ module harmsy
       integer, intent(in) :: jmax, ntheta
     end subroutine init_harmsy_sub
     
+    module subroutine deallocate_harmsy_sub()
+    end subroutine deallocate_harmsy_sub
+    
     module pure subroutine harmsy_sub(jmax, n, spectra, gridvals)
       integer,           intent(in)  :: jmax, n
       complex(kind=dbl), intent(in)  :: spectra(n,*)
       real(kind=dbl),    intent(out) :: gridvals(n,2*nth,0:nth)
     end subroutine harmsy_sub
-    
-    module subroutine deallocate_harmsy_sub()
-    end subroutine deallocate_harmsy_sub
     
     module pure subroutine pmj_set0_sub(it, ctheta, stheta)
       integer,        intent(in)  :: it

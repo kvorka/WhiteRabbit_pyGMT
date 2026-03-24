@@ -2,47 +2,43 @@ import subprocess
 from pygmt_objects.cross_section import csection
 from pygmt_objects.surface_plot import csurface
 
-## Create csection object and define the projection and colorpallete (from matplotlib.colors) to be used
-#csc = csection( proj="X5c/10c", cpallete="coolwarm", cmap="cmap.cpt" )
+# Create csection object and define the projection and colorpallete (from matplotlib.colors) to be used
+csc = csection( proj="X5c/-10c", cmap="coolwarm", cpallete='coolwarm' )
 
-## Cross sections zonal jet
-#csc.vcolor_bar( b1="-0.3", b2="0.3", unit="m/s", outfile="85-vbar-vphi.pdf" )
-#csc.cross_section( inf="85-mode1ab-vphi.dat",  outf="85-mode1ab-vp.pdf",  cB=0.3, cT=1.0, xnt="xa0.5f0.5", ynt="ya30", tgt="tgt.dat" )
-#csc.cross_section( inf="85-mode2ab-vphi.dat",  outf="85-mode2ab-vp.pdf",  cB=0.3, cT=0.7, xnt="xa0.5f0.5", ynt="yf30", tgt="tgt.dat" )
-#csc.cross_section( inf="85-mode2a-vphi.dat", outf="85-mode2a-vp.pdf", cB=0.3, cT=1.0, xnt="xf0.5", ynt="ya30", tgt="tgt.dat" )
-#csc.cross_section( inf="85-mode2b-vphi.dat", outf="85-mode2b-vp.pdf", cB=0.3, cT=0.9, xnt="xa0.5f0.5", ynt="ya30", tgt="tgt.dat" )
+#Color bars
+#csc.vcolor_bar(b1="-0.06", b2="0.06", unit="", outfile="Vr-bar.pdf")
+#csc.vcolor_bar(b1="-0.25", b2="0.25", unit="m/s", outfile="barr-vphi.pdf")
+#csc.vcolor_bar(b1="-0.2", b2="0.2", unit="m/s", outfile="bar-vtht.pdf")
+#csc.vcolor_bar(b1="-0.1", b2="0.1", unit="m/s", outfile="bar-vrad.pdf")
 
-## Cross section meridional circulation
-#csc.hcolor_bar( b1="-3.0", b2="3.0", unit="cm/s", outfile="85-bar-vtht.pdf" )
-#csc.cross_section( inf="soderlund-vtht.dat",  outf="soderlund-vt.pdf",  cB=0.15, cT=1.0, xnt="xf0.5", ynt="yf30" )
-#csc.cross_section( inf="85-mode2ab-vtht.dat",  outf="85-mode2ab-vt.pdf",  cB=0.03, cT=1.0, xnt="xf0.5", ynt="yf30" )
-#csc.cross_section( inf="85-mode2a-vtht.dat", outf="85-mode2a-vt.pdf", cB=0.03, cT=0.6, xnt="xf0.5", ynt="yf30" )
-#csc.cross_section( inf="85-mode2b-vtht.dat", outf="85-mode2b-vt.pdf", cB=0.03, cT=0.9, xnt="xa0.5f0.5", ynt="yf30" )
+#Cross sections
+#csc.cross_section( inf="modXX-vphi.dat",  outf="modelXX-vp.pdf",  cB=30.0, cT=1.0, xnt="xf0.5", ynt="yf30")$
+csc.cross_section( inf="modXX-vtht.dat",  outf="modelXX-vt.pdf",  cB=10.0, cT=1.0, xnt="xa0.5", ynt="yf30")
+#csc.cross_section( inf="test6-vrad.dat",  outf="test6-vr.pdf",  cB=0.02, cT=1.0, xnt="xa0.5", ynt="yf30")
 
-## Cross section radial velocity
-#csc.hcolor_bar( b1="-1.0", b2="1.0", unit="cm/s", outfile="85-bar-vrad.pdf" )
-#csc.cross_section( inf="85-mode1ab-vrad.dat",  outf="85-mode1ab-vr.pdf",  cB=0.01, cT=0.7, xnt="xf0.5", ynt="yf30" )
-#csc.cross_section( inf="85-mode2ab-vrad.dat",  outf="85-mode2ab-vr.pdf",  cB=0.01, cT=0.7, xnt="xf0.5", ynt="yf30" )
-#csc.cross_section( inf="85-mode2a-vrad.dat", outf="85-mode2a-vr.pdf", cB=0.01, cT=0.6, xnt="xf0.5", ynt="yf30" )
-#csc.cross_section( inf="85-mode2b-vrad.dat", outf="85-mode2b-vr.pdf", cB=0.01, cT=1.0, xnt="xa0.5f0.5", ynt="yf30" )
-
-## Create csurface object and define the colorpallete (from matplotlib.colors) to be used
-#csf = csurface( proj="W180/12", cpallete="coolwarm", cmap="cmap.cpt" )
-
-## Surface plots heat flux
-#csf.vcolor_bar( b1="0.70", b2="1.30", unit="q/@!\257q", outfile="85-bar-flux.pdf" )
-#csf.surface_plot( inf="85-mode1-flux.dat",  outf="85-mode1-fx.pdf", cB=0.30, cT=1.0, tgtn="tgt-n.dat", tgts="tgt-s.dat")
-#csf.surface_plot( inf="85-mode2a-flux.dat", outf="85-mode2a-fx.pdf", cB=0.30, cT=0.9, tgtn="tgt-n.dat", tgts="tgt-s.dat")
-#csf.surface_plot( inf="85-mode2b-flux.dat", outf="85-mode2b-fx.pdf", cB=0.30, cT=1.0, tgtn="tgt-n.dat", tgts="tgt-s.dat")
-
-## Create csurface object and define the colorpallete (from matplotlib.colors) to be used
-#csf = csurface( proj="G260/15/12c", cpallete="coolwarm", cmap="cmap.cpt" )
-csf = csurface( proj="W180/12", cpallete="coolwarm", cmap="cmap.cpt" )
 #
-### Surface plots heat flux
-#csf.vcolor_bar( b1="1.0", b2="1.0", unit="cm/s", outfile="85-vbar-surfvtht.pdf" )
-csf.surface_plot( inf="85-mode1-surf_vtht.dat",  outf="85-mode1-surfvtht.pdf",  cB=0.01, cT=0.9, tgtn="tgt-n.dat", tgts="tgt-s.dat")
-csf.surface_plot( inf="85-mode2a-surf_vtht.dat", outf="85-mode2a-surfvtht.pdf", cB=0.01, cT=1.0, tgtn="tgt-n.dat", tgts="tgt-s.dat")
-csf.surface_plot( inf="85-mode2b-surf_vtht.dat", outf="85-mode2b-surfvtht.pdf", cB=0.01, cT=1.0, tgtn="tgt-n.dat", tgts="tgt-s.dat")
+#csc.cross_section( inf="modeIIa-vphi.dat",  outf="modeIIa-vp.pdf",  cB=2.5,  cT=1.0, xnt="xf0.5", ynt="yf30")
+#csc.cross_section( inf="modeIIa-vtht.dat",  outf="modeIIa-vt.pdf",  cB=0.22, cT=1.0, xnt="xf0.5", ynt="yf30")
+#csc.cross_section( inf="modeIIa-vrad.dat",  outf="modeIIa-vr.pdf",  cB=0.10, cT=1.0, xnt="xf0.5", ynt="yf30")
+#
+#csc.cross_section( inf="modeIIb-vphi.dat",  outf="modeIIb-vp.pdf",  cB=2.5,  cT=1.0, xnt="xf0.5", ynt="yf30")
+#csc.cross_section( inf="modeIIb-vtht.dat",  outf="modeIIb-vt.pdf",  cB=0.22, cT=1.0, xnt="xf0.5", ynt="yf30")
+#csc.cross_section( inf="modeIIb-vrad.dat",  outf="modeIIb-vr.pdf",  cB=0.10, cT=1.0, xnt="xf0.5", ynt="yf30")
 
-subprocess.run("rm -f cmap.cpt", shell=True)
+#csc.cross_section( inf="modeIr-vphi.dat",  outf="modeIr-vp.pdf",  cB=0.25, cT=1.0, xnt="xa0.5", ynt="ya30")
+#csc.cross_section( inf="modeIr-vtht.dat",  outf="modeIr-vt.pdf",  cB=0.22, cT=1.0, xnt="xa0.5", ynt="ya30")
+#csc.cross_section( inf="modeIr-vrad.dat",  outf="modeIr-vr.pdf",  cB=0.10, cT=1.0, xnt="xa0.5", ynt="ya30")
+#
+#csc.cross_section( inf="modeIIar-vphi.dat",  outf="modeIIar-vp.pdf",  cB=0.25, cT=1.0, xnt="xa0.5", ynt="yf30")
+#csc.cross_section( inf="modeIIar-vtht.dat",  outf="modeIIar-vt.pdf",  cB=0.22, cT=1.0, xnt="xa0.5", ynt="yf30")
+#csc.cross_section( inf="modeIIar-vrad.dat",  outf="modeIIar-vr.pdf",  cB=0.10, cT=1.0, xnt="xa0.5", ynt="yf30")
+#
+#csc.cross_section( inf="modeIIbr-vphi.dat",  outf="modeIIbr-vp.pdf",  cB=0.25, cT=1.0, xnt="xa0.5", ynt="yf30")
+#csc.cross_section( inf="modeIIbr-vtht.dat",  outf="modeIIbr-vt.pdf",  cB=0.22, cT=1.0, xnt="xa0.5", ynt="yf30")
+#csc.cross_section( inf="modeIIbr-vrad.dat",  outf="modeIIbr-vr.pdf",  cB=0.10, cT=1.0, xnt="xa0.5", ynt="yf30")
+
+#csc = csurface( proj="W12c" , cmap="coolwarm", cpallete="coolwarm" )
+#csc.surface_plot( inf="flux-flux.dat", outf="flux-Europa.pdf", cB=0.20 )
+#csc.vcolor_bar(b1="0.8", b2="1.2", unit="", outfile="bar-Europa.pdf")
+#
+subprocess.run("rm -f *.cpt", shell=True)
