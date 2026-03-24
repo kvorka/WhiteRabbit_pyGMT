@@ -12,7 +12,7 @@ csc = csection( proj="X5c/-10c", cmap="coolwarm", cpallete='coolwarm' )
 #csc.vcolor_bar(b1="-0.1", b2="0.1", unit="m/s", outfile="bar-vrad.pdf")
 
 #Cross sections
-#csc.cross_section( inf="modXX-vphi.dat",  outf="modelXX-vp.pdf",  cB=30.0, cT=1.0, xnt="xf0.5", ynt="yf30")$
+csc.cross_section( inf="modXX-vphi.dat",  outf="modelXX-vp.pdf",  cB=30.0, cT=1.0, xnt="xf0.5", ynt="yf30")
 csc.cross_section( inf="modXX-vtht.dat",  outf="modelXX-vt.pdf",  cB=10.0, cT=1.0, xnt="xa0.5", ynt="yf30")
 #csc.cross_section( inf="test6-vrad.dat",  outf="test6-vr.pdf",  cB=0.02, cT=1.0, xnt="xa0.5", ynt="yf30")
 

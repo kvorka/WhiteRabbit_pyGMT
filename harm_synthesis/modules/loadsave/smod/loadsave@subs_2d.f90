@@ -29,30 +29,30 @@ submodule (loadsave) subs_2D
     
     if (eqsim == 'n') then
       open(unit=8, file=file_data, status='new', action='write')
-        do ith = 0, nth
+        do ith = 1, nth
           do iph = 1, 2*nth
-            write(8,'(3f8.3)') iph*180._dbl/nth, 90-ith*180._dbl/nth, grddata(iph,ith)
+            write(8,'(3f8.3)') iph*180._dbl/nth, 90-(ith-1)*180._dbl/(nth-1), grddata(iph,ith)
           end do
         end do
       close(8)
       
     else if (eqsim == 's') then
       open(unit=8, file=file_data, status='new', action='write')
-        do ith = 0, nth
-          !val = sum( grddata(:,ith)+ grddata(:,nth-ith)) / 2 / (2*nth-1)
+        do ith = 1, nth
+          !val = sum( grddata(:,ith)+ grddata(:,nth+1-ith)) / 2 / (2*nth-1)
           do iph = 1, 2*nth
-            write(8,*) iph*180._dbl/nth, 90-ith*180._dbl/nth, (grddata(iph,ith)+ grddata(iph,nth-ith)) / 2
+            write(8,*) iph*180._dbl/nth, 90-(ith-1)*180._dbl/(nth-1), (grddata(iph,ith)+ grddata(iph,nth+1-ith)) / 2
           end do
         end do
       close(8)
     
     else if (eqsim == 'a') then
       open(unit=8, file=file_data, status='new', action='write')
-        do ith = 0, nth
-          !val = sum( grddata(:,ith)-grddata(:,nth-ith)) / 2 / (2*nth-1)
+        do ith = 1, nth
+          !val = sum( grddata(:,ith)-grddata(:,nth+1-ith)) / 2 / (2*nth-1)
           do iph = 1, 2*nth
             val = grddata(iph,ith)
-            write(8,*) iph*180._dbl/nth, 90-ith*180._dbl/nth, val
+            write(8,*) iph*180._dbl/nth, 90-(ith-1)*180._dbl/(nth-1), val
           end do
         end do
       close(8)

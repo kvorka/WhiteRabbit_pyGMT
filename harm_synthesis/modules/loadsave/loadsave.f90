@@ -5,7 +5,7 @@ module loadsave
   interface
     module subroutine save_data_1d_sub(file_data, grddata, eqsim)
       character(len=*), intent(in) :: file_data
-      real(kind=dbl),   intent(in) :: grddata(2*nth,0:nth)
+      real(kind=dbl),   intent(in) :: grddata(2*nth,nth)
       character,        intent(in) :: eqsim
     end subroutine save_data_1d_sub
     
@@ -17,7 +17,7 @@ module loadsave
     
     module subroutine save_data_2d_sub(file_range, file_data, grddata, eqsim)
       character(len=*), intent(in) :: file_range, file_data
-      real(kind=dbl),   intent(in) :: grddata(2*nth,0:nth)
+      real(kind=dbl),   intent(in) :: grddata(2*nth,nth)
       character,        intent(in) :: eqsim
     end subroutine save_data_2d_sub
     
@@ -30,7 +30,7 @@ module loadsave
     
     module subroutine save_data_3d_sub(file_range, file_data, r, grddata, eqsim)
       character(len=*), intent(in) :: file_range, file_data
-      real(kind=dbl),   intent(in) :: r(n_out), grddata(0:nth,n_out)
+      real(kind=dbl),   intent(in) :: r(n_out), grddata(nth,n_out)
       character,        intent(in) :: eqsim
     end subroutine save_data_3d_sub
   end interface

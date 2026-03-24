@@ -7,15 +7,15 @@ submodule (loadsave) subs_1d
     select case ( eqsim )
       case ('s')
         open(unit=8, file=file_data, status='new', action='write')
-          do ith = 0, nth
-            write(8,*) ith*180._dbl/nth, sum( grddata(:,ith) + grddata(:,nth-ith) ) / 2 / (2*nth)
+          do ith = 1, nth
+            write(8,*) (ith-1)*180._dbl/(nth-1), sum( grddata(:,ith) + grddata(:,nth+1-ith) ) / 2 / (2*nth)
           end do
         close(8)
         
       case default
         open(unit=8, file=file_data, status='new', action='write')
-          do ith = 0, nth
-            write(8,*) ith*180._dbl/nth, sum( grddata(:,ith) ) / (2*nth)
+          do ith = 1, nth
+            write(8,*) (ith-1)*180._dbl/(nth-1), sum( grddata(:,ith) ) / (2*nth)
           end do
         close(8)
     end select

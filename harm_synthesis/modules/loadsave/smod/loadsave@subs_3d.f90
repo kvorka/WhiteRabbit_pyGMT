@@ -43,11 +43,11 @@ submodule (loadsave) subs_3D
       do ir = 1, n_out
         r_dim = (r_out-r_in) * r(ir) + (r_in - r_ud_ocean * r_out) / (1-r_ud_ocean)
         
-        do ith = 0, nth
+        do ith = 1, nth
           if ( eqsim == 's' ) then
-            dhelp = ( grddata(ith,ir) + grddata(nth-ith,ir) ) / 2
+            dhelp = ( grddata(ith,ir) + grddata(nth+1-ith,ir) ) / 2
           else if ( eqsim == 'a' ) then
-            dhelp = ( grddata(ith,ir) - grddata(nth-ith,ir) ) / 2
+            dhelp = ( grddata(ith,ir) - grddata(nth+1-ith,ir) ) / 2
           else
             dhelp = grddata(ith,ir)
           end if
@@ -55,7 +55,7 @@ submodule (loadsave) subs_3D
           dmax = max(dmax, dhelp)
           dmin = min(dmin, dhelp)
           
-          write(8,'(3F15.7)') r_dim, ith*180._dbl/nth, dhelp
+          write(8,'(3F15.7)') r_dim, (ith-1)*180._dbl/(nth-1), dhelp
         end do
       end do
     close(8)
